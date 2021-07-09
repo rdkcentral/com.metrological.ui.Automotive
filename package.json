@@ -1,0 +1,7 @@
+{
+  "name": "com.metrological.ui.Automotive",
+  "description": "AutoMotive",
+  "dependencies": {
+    "@lightningjs/sdk": "^4.4.0"
+  }
+}
