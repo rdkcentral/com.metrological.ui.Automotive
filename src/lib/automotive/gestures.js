@@ -1,14 +1,9 @@
-/**
- * The amount of milliseconds between a touchstart and touchend
- * for the recording to be flagged as a swipe
- * @type {number}
- */
-let maxSwipeTime = 800;
+import {config} from "./index";
 
 export const isSwipeLeft = (recording) => {
     return isSwipeInDirection({
         x: (x) => {
-            return x < -100;
+            return x < config.get('distanceHorizontalSwipe') * -1;
         },
         y: (y) => {
             return Math.abs(y) < 100;
@@ -21,7 +16,7 @@ export const isSwipeLeft = (recording) => {
 const isSwipeRight = (recording) => {
     return isSwipeInDirection({
         x: (x) => {
-            return x > 100;
+            return x > config.get('distanceHorizontalSwipe');
         },
         y: (y) => {
             return Math.abs(y) < 100;
@@ -37,7 +32,7 @@ export const isSwipeUp = (recording) => {
             return Math.abs(x) < 100;
         },
         y: (y) => {
-            return y < -100;
+            return y < config.get('distanceVerticalSwipe') * -1;
         },
         event: 'swipeUp',
         recording
@@ -50,7 +45,7 @@ export const isSwipeDown = (recording) => {
             return Math.abs(x) < 100;
         },
         y: (y) => {
-            return y > 150;
+            return y > config.get('distanceVerticalSwipe');
         },
         event: 'swipeDown',
         recording
@@ -78,9 +73,6 @@ const isSwipeInDirection = ({x: fnx, y: fny, event, recording}) => {
     }
 };
 
-export const isSwipe = (recording) => {
-    return recording.starttime - recording.endtime <= maxSwipeTime && recording.fingersTouched > 1;
-};
 
 export const isPotentialPinch = (recording) => {
     return recording.fingersTouched === 2;

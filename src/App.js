@@ -2,6 +2,7 @@ import {Router} from "@lightningjs/sdk";
 import {initAutomotive} from "./lib/automotive"
 import routes from "./lib/routes"
 import Events from "./lib/Events"
+import {getConfigMap} from "./lib/automotive/helpers";
 
 export default class App extends Router.App {
     // define which fonts are used in the App
@@ -11,7 +12,7 @@ export default class App extends Router.App {
     }
 
     _setup() {
-        initAutomotive(this.application);
+        initAutomotive(this.application, getConfigMap());
         Router.startRouter(routes, this);
 
         this.initListeners();

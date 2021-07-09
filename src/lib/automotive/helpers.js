@@ -1,4 +1,5 @@
 import {getApplication} from "./index";
+import {Settings} from "@lightningjs/sdk";
 
 /**
  * Return element with the highest zIndex for a map of fingers
@@ -116,3 +117,20 @@ export const distance = (v1, v2) => {
     const b = v1.y - v2.y;
     return Math.sqrt(a * a + b * b);
 };
+
+
+export const getConfigMap = () => {
+    const automotiveSettings = Settings.get("platform", "automotive")
+    return [
+        "bridgeCloseTimeout",
+        "tapDelay",
+        "beforeDoubleTapDelay",
+        "flagAsHoldDelay",
+        "doubleTapMaxDistance",
+        "distanceHorizontalSwipe",
+        "distanceVerticalSwipe"
+    ].reduce((config, key)=>{
+        config.set(key, automotiveSettings[key]);
+        return config;
+    }, new Map())
+}

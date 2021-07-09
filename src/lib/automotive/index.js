@@ -4,10 +4,13 @@ import {analyzeEnded,resetRecordings} from "./analyzer";
 import {getTouchedElements, getAllTouchedElements} from "./helpers";
 
 let application = null;
+export let config = new Map();
 
-export const initAutomotive = (app) => {
+export const initAutomotive = (app, cfg) => {
+    console.log("test", cfg)
     disableBrowserBehavior();
     setup(document, app);
+    config = cfg;
 };
 
 /**
@@ -23,13 +26,6 @@ let touchStarted = false;
  * @type {boolean}
  */
 let bridgeOpen = true;
-
-/**
- * The amount of milliseconds we keep the 'bridge' open for new new fingers to touch
- * the screen. All touches within the list while the bridge is open will be recorded.
- * @type {number} - milliseconds
- */
-const bridgeCloseTimeout = 110;
 
 /**
  * timeout id
@@ -57,28 +53,10 @@ let timestampTouchStarted = 0;
 let activeRecording = {};
 
 /**
- * Timestamp of when we last updated recording with move data
- * @type {number}
- */
-let lastUpdate = 0;
-
-/**
- * Timestamp of when we last pushed data to hold analyse9
- * @type {number}
- */
-let lastHoldUpdate = 0;
-
-/**
  * The elements that the user is holding / dragging
  * @type {Array}
  */
 let stickyElements = [];
-
-/**
- * The element that's accepting the hold / drag event
- * @type {null}
- */
-let stickyElement = null;
 
 /**
  * Elements that user last touched
@@ -175,7 +153,7 @@ const openBridge = () => {
 
     // schedule timeout
     bridgeTimeoutId = Registry.setTimeout(
-        closeBridge, bridgeCloseTimeout
+        closeBridge, config.get('bridgeCloseTimeout')
     );
 };
 

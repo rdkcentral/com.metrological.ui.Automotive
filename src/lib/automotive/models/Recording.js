@@ -1,11 +1,7 @@
 import {Registry} from "@lightningjs/sdk";
 import {Finger} from "./";
 import Vector from "./Vector";
-import {sticky} from "../index";
-import {distance} from "../helpers";
-
-// @todo: refactor
-import {flagAsHoldDelay} from "../analyzer";
+import {sticky, config} from "../index";
 
 export default class Recording {
     constructor(event) {
@@ -31,7 +27,7 @@ export default class Recording {
                     sticky('_onDrag', this);
                 }, 1);
             }
-        }, flagAsHoldDelay);
+        }, config.get('flagAsHoldDelay'));
     }
 
     /**

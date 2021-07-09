@@ -1,36 +1,8 @@
 import {Registry} from "@lightningjs/sdk";
-import {dispatch, sticky} from "./index";
-import {isSwipe, swipes} from "./gestures";
+import {dispatch, config} from "./index";
+import {swipes} from "./gestures";
 import {distance} from "./helpers";
 import Events from "../Events";
-
-/**
- * Max Amount of milliseconds between touchstart / end to be flagged
- * as a tap
- * @type {number}
- */
-export let tapDelay = 80;
-
-/**
- * Max amount of milliseconds that a touchstart can start after a tap flag
- * to be flagged as a double tap
- * @type {number}
- */
-const beforeDoubleTapDelay = 180;
-
-/**
- * Amount of milliseconds that need to be passed to start flagging
- * recording as a hold; for drag / pinch / long hold
- * @type {number}
- */
-export const flagAsHoldDelay = 800;
-
-/**
- * Max amount of pixels between 2 taps startposition
- * to be flagged as double tap
- * @type {number}
- */
-const doubleTapMaxDistance = 40;
 
 /**
  * Timeout id for dispatching onTap on touched screen element
@@ -58,7 +30,7 @@ export const analyzeEnded = (recording) => {
                 const dis = distance(
                     recording.startposition, lastRecording.startposition
                 );
-                if (Math.abs(dis) < doubleTapMaxDistance) {
+                if (Math.abs(dis) < config.get('doubleTapMaxDistance')) {
                     Registry.clearTimeouts();
                     dispatch('_onDoubleTap', recording);
                     recording.isTap = false;
@@ -69,7 +41,7 @@ export const analyzeEnded = (recording) => {
                 tapFireTimeoutId = Registry.setTimeout(() => {
                     dispatch('_onSingleTap', recording);
                     recording.isTap = false;
-                }, beforeDoubleTapDelay);
+                }, config.get('beforeDoubleTapDelay'));
             }
             lastRecording = recording;
         } else if (!recording.moved && !recording.isHold) {
@@ -98,7 +70,7 @@ export const resetRecordings = () => {
 };
 
 const isTap = (recording) => {
-    return recording.endtime - recording.starttime <= tapDelay && !recording.moved;
+    return recording.endtime - recording.starttime <= config.get('tapDelay') && !recording.moved;
 };
 
 

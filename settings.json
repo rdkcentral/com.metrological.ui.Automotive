@@ -9,6 +9,15 @@
   "platformSettings": {
     "path": "./static",
     "log": true,
-    "showVersion": true
+    "showVersion": true,
+    "automotive": {
+      "bridgeCloseTimeout": 110,
+      "tapDelay": 80,
+      "beforeDoubleTapDelay": 180,
+      "flagAsHoldDelay": 800,
+      "doubleTapMaxDistance": 40,
+      "distanceHorizontalSwipe": 100,
+      "distanceVerticalSwipe": 100
+    }
   }
 }
