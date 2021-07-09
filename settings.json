@@ -18,7 +18,8 @@
       "doubleTapMaxDistance": 40,
       "distanceHorizontalSwipe": 100,
       "distanceVerticalSwipe": 100,
-      "externalTouchScreen": true
+      "externalTouchScreen": true,
+      "componentBlockBroadcast": true
     }
   }
 }

@@ -1,6 +1,6 @@
 import {Registry, Log, Router} from "@lightningjs/sdk";
 import {Recording} from "./models";
-import {analyzeEnded,resetRecordings} from "./analyzer";
+import {analyzeEnded, resetRecordings} from "./analyzer";
 import {getTouchedElements, getAllTouchedElements} from "./helpers";
 
 let application = null;
@@ -111,7 +111,7 @@ const handleTouchEnd = () => {
  * @param event
  */
 const handleTouchMove = (event) => {
-    if(activeRecording.starttime){
+    if (activeRecording.starttime) {
         activeRecording.update(event);
     }
 };
@@ -196,16 +196,16 @@ const setup = (target, app) => {
     // store Lightning.Application instance
     application = app;
 
-    ['touchstart','touchmove','touchend'].forEach((name)=>{
-        try{
-            target.addEventListener(name, (event)=>{
-                if(handlers[name]){
-                    if(config.get('externalTouchScreen') && event.sourceCapabilities){
+    ['touchstart', 'touchmove', 'touchend'].forEach((name) => {
+        try {
+            target.addEventListener(name, (event) => {
+                if (handlers[name]) {
+                    if (config.get('externalTouchScreen') && event.sourceCapabilities) {
                         return;
                     }
                     handlers[name](event);
                 }
-            })
+            });
         } catch (e) {
             console.error(`Error while add correct listeners to: ${target}`);
         }
@@ -216,17 +216,18 @@ const setup = (target, app) => {
  *
  * @param event
  * @param recording
+ * @param reset
  */
 export const dispatch = (event, recording) => {
     const touched = getTouchedElements(recording.fingers);
-    if(touched.length){
-        touched.forEach((element)=>{
-            try{
-                element[event](recording)
-            }catch(e){
+    if (touched.length) {
+        touched.forEach((element) => {
+            try {
+                element[event](recording);
+            } catch (e) {
                 // silent
             }
-        })
+        });
         lastTouchedElements = touched;
     }
     // clean up recording
@@ -239,39 +240,42 @@ export const dispatch = (event, recording) => {
  * @param recording
  */
 export const sticky = (event, recording) => {
+    let handled = false;
     // on first fire after a new recording has started
     // we collect the elements;
-    if(!stickyElements.length){
-        stickyElements = getAllTouchedElements(recording.fingers).filter((element)=>{
+    if (!stickyElements.length) {
+        stickyElements = getAllTouchedElements(recording.fingers).filter((element) => {
             return element[event];
         });
     }
-    if(stickyElements.length){
-        stickyElements.forEach((element)=>{
-            try{
-                element[event](recording)
-            }catch(e){
+    if (stickyElements.length) {
+        stickyElements.forEach((element) => {
+            try {
+                handled = element[event](recording);
+            } catch (e) {
                 // silent
             }
         });
     }
-}
+
+    return handled;
+};
 
 export const handlers = {
     touchstart: handleTouchStart,
     touchmove: handleTouchMove,
     touchend: handleTouchEnd
-}
+};
 
 export const getApplication = () => {
     return application;
 };
 
-export const activeTouchedElements = ()=>{
+export const activeTouchedElements = () => {
     return stickyElements;
 };
 
-export const getLastTouchedElements = ()=>{
+export const getLastTouchedElements = () => {
     return lastTouchedElements;
 };
 

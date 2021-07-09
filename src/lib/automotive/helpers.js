@@ -6,17 +6,17 @@ import {Settings} from "@lightningjs/sdk";
  * @param fingers
  * @returns {Array}
  */
-export const getTouchedElements = (fingers)=>{
-    return getElementsAtPosition(fingers)
-}
+export const getTouchedElements = (fingers) => {
+    return getElementsAtPosition(fingers);
+};
 
 /**
  * Returns an array of all elements that collide
  * with the fingers zIndex is ignored
  */
-export const getAllTouchedElements = (fingers)=>{
-    return getElementsAtPosition(fingers, true)
-}
+export const getAllTouchedElements = (fingers) => {
+    return getElementsAtPosition(fingers, true);
+};
 
 /**
  * Collect elements that collide with fingers
@@ -26,12 +26,12 @@ export const getAllTouchedElements = (fingers)=>{
  */
 const getElementsAtPosition = (fingers, collectAll) => {
     const touched = [];
-    for(let finger of fingers.values()){
+    for (let finger of fingers.values()) {
         const collection = getAtPosition(finger.start.x, finger.start.y);
-        if(collection?.length){
-            if(collectAll){
+        if (collection?.length) {
+            if (collectAll) {
                 touched.push(...collection);
-            }else{
+            } else {
                 // push element with highest zIndex
                 touched.push(collection.slice(-1)[0]);
             }
@@ -44,7 +44,7 @@ export const getAtPosition = (x, y) => {
     const rootElements = getApplication().children;
     const activeElements = findChildren([], rootElements);
     const touched = inRange(activeElements, x, y) || [];
-    if(touched.length){
+    if (touched.length) {
         touched.sort((a, b) => {
             // Sort by zIndex and then id
             if (a.zIndex > b.zIndex) {
@@ -120,7 +120,7 @@ export const distance = (v1, v2) => {
 
 
 export const getConfigMap = () => {
-    const automotiveSettings = Settings.get("platform", "automotive")
+    const automotiveSettings = Settings.get("platform", "automotive");
     return [
         "bridgeCloseTimeout",
         "tapDelay",
@@ -129,9 +129,10 @@ export const getConfigMap = () => {
         "doubleTapMaxDistance",
         "distanceHorizontalSwipe",
         "distanceVerticalSwipe",
-        "externalTouchScreen"
-    ].reduce((config, key)=>{
+        "externalTouchScreen",
+        "componentBlockBroadcast"
+    ].reduce((config, key) => {
         config.set(key, automotiveSettings[key]);
         return config;
-    }, new Map())
-}
+    }, new Map());
+};

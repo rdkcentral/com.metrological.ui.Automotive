@@ -28,8 +28,8 @@ During development you can use the **watcher** functionality of the _Lightning-C
 
 #### Documentation
 
-This Library provides examples on how to interactive with a multi-touch touchscreen. The library
-records and analyses all fingers and it's movement ( there seems to be a hard limit in browser that it tacks max 10 fingers)
+This Library provides examples on how to build interactivity for a multi-touch touchscreen. The library
+records and analyzes all fingers and it's movement ( there seems to be a hard limit in browser that it tacks max 10 fingers)
 
 Once the analyser recognizes a gesture it tries to dispatch that event on one of the active touched elements.
 

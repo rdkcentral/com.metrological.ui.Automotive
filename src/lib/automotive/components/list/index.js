@@ -44,4 +44,14 @@ export default class List extends Lightning.Component {
             this.tag("Items").x,this.tag("Items").y
         )
     }
+
+    swipeLeft(recording){
+        this.tag("Items").setSmooth('x', -5000,{duration:1});
+        console.log("list swipe?")
+    }
+
+    swipeRight(recording){
+        this.tag("Items").setSmooth('x', 0, {duration:2});
+
+    }
 }

@@ -1,5 +1,5 @@
 import {Registry} from "@lightningjs/sdk";
-import {dispatch, config} from "./index";
+import {dispatch, config, sticky} from "./index";
 import {swipes} from "./gestures";
 import {distance} from "./helpers";
 import Events from "../Events";
@@ -56,9 +56,23 @@ export const analyzeEnded = (recording) => {
         const analyzed = swipes.map((swipe) => {
             return swipe(recording);
         }).filter(Boolean);
+
+        // if we recognized a swipe
         if (analyzed.length) {
             const data = analyzed[0];
-            Events.broadcast(data.event, data.recording);
+            let blocked = false;
+
+            if(config.get('componentBlockBroadcast')){
+                blocked = sticky(
+                    data.event, data.recording
+                );
+            }
+            // if the event is not being handled by an touched component
+            // or the function return false explicit broadcast the event
+            if(blocked === false){
+                Events.broadcast(data.event, data.recording);
+            }
+
         }
     }
 };
