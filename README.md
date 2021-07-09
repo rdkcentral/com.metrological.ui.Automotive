@@ -28,4 +28,34 @@ During development you can use the **watcher** functionality of the _Lightning-C
 
 #### Documentation
 
-Use `lng docs` to open up the Lightning-SDK documentation.
+This Library provides examples on how to interactive with a multi-touch touchscreen. All active elements  
+
+---
+
+### Platform settings:
+
+##### bridgeCloseTimeout
+
+The amount of milliseconds we keep the 'bridge' open for new new fingers to touch
+the screen. All touches within the list while the bridge is open will be recorded.
+
+
+##### tapDelay
+Max Amount of milliseconds between touchstart / end to be flagged
+
+
+##### beforeDoubleTapDelay
+
+Max amount of milliseconds that a touchstart can start after a tap flag to be flagged as a double tap
+
+##### flagAsHoldDelay
+
+Amount of milliseconds that need to be passed to start flagging recording as a hold; for drag / pinch / long hold
+
+##### distanceHorizontalSwipe
+
+Minimal amount of pixel one or more fingers need to travel before it's gets recognized as a horizontal swipe
+
+##### distanceVerticalSwipe
+
+Minimal amount of pixel one or more fingers need to travel before it's gets recognized as a vertical swipe

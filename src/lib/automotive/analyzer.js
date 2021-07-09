@@ -47,8 +47,6 @@ export const analyzeEnded = (recording) => {
         } else if (!recording.moved && !recording.isHold) {
             dispatch('_onMultiTap', recording);
             lastRecording = null;
-        }else{
-            console.log("swipe?")
         }
     } else if (!recording.moved) {
         // if we passed tap delay and we haven't moved

@@ -128,7 +128,8 @@ export const getConfigMap = () => {
         "flagAsHoldDelay",
         "doubleTapMaxDistance",
         "distanceHorizontalSwipe",
-        "distanceVerticalSwipe"
+        "distanceVerticalSwipe",
+        "externalTouchScreen"
     ].reduce((config, key)=>{
         config.set(key, automotiveSettings[key]);
         return config;

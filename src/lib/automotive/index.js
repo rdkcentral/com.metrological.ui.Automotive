@@ -7,7 +7,6 @@ let application = null;
 export let config = new Map();
 
 export const initAutomotive = (app, cfg) => {
-    console.log("test", cfg)
     disableBrowserBehavior();
     setup(document, app);
     config = cfg;
@@ -83,7 +82,7 @@ const handleTouchStart = (event) => {
  * Called for every finger that stopped touching the screen
  * @param event
  */
-const handleTouchEnd = (event) => {
+const handleTouchEnd = () => {
     let recording = activeRecording;
     Log.info(`touchend`);
     // flag that at least one finger stopped touching the screen
@@ -196,29 +195,21 @@ const isBridgeOpen = () => {
 const setup = (target, app) => {
     // store Lightning.Application instance
     application = app;
-    try {
-        target.addEventListener('touchstart', (event) => {
-            // prevent handling extra event fired by InputDevice
-            // @todo: make setting for external touch device (beetronics only?)
-            if (!event.sourceCapabilities) {
-                handleTouchStart(event);
-            }
-        });
-        target.addEventListener('touchend', (event) => {
-            // prevent handling extra event fired by InputDevice
-            // @todo: make setting for external touch device (beetronics only?)
-            if (!event.sourceCapabilities) {
-                handleTouchEnd(event);
-            }
-        });
-        target.addEventListener('touchmove', (event) => {
-            if (!event.sourceCapabilities) {
-                handleTouchMove(event);
-            }
-        });
-    } catch (e) {
-        console.error(`Error while add correct listeners to: ${target}`);
-    }
+
+    ['touchstart','touchmove','touchend'].forEach((name)=>{
+        try{
+            target.addEventListener(name, (event)=>{
+                if(handlers[name]){
+                    if(config.get('externalTouchScreen') && event.sourceCapabilities){
+                        return;
+                    }
+                    handlers[name](event);
+                }
+            })
+        } catch (e) {
+            console.error(`Error while add correct listeners to: ${target}`);
+        }
+    });
 };
 
 /**
@@ -264,6 +255,12 @@ export const sticky = (event, recording) => {
             }
         });
     }
+}
+
+export const handlers = {
+    touchstart: handleTouchStart,
+    touchmove: handleTouchMove,
+    touchend: handleTouchEnd
 }
 
 export const getApplication = () => {
