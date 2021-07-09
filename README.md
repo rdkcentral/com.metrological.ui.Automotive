@@ -28,7 +28,36 @@ During development you can use the **watcher** functionality of the _Lightning-C
 
 #### Documentation
 
-This Library provides examples on how to interactive with a multi-touch touchscreen. All active elements  
+This Library provides examples on how to interactive with a multi-touch touchscreen. The library
+records and analyses all fingers and it's movement ( there seems to be a hard limit in browser that it tacks max 10 fingers)
+
+Once the analyser recognizes a gesture it tries to dispatch that event on one of the active touched elements.
+
+### Available events
+
+#### _onSingleTap()
+
+Will be called when one finger quickly touches this element
+
+#### _onMultiTap()
+
+Will be called when mutliple fingers quickly touches this element
+
+#### _onDoubleTap()
+
+When one finger quickly double taps the same element
+
+#### _onLongpress()
+
+Will be invoked if one or more fingers are pressing this element for < 800ms. For  now the recording data holds data for all the fingers so it could be that 3 fingers are touching 3 individual elements they all receive
+
+#### _onDrag()
+
+Will be invoked when you touch an element and start moving your finger
+
+#### _onDragEnd()
+
+When you stop dragging an element
 
 ---
 
