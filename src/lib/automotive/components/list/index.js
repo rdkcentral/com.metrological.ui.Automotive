@@ -15,18 +15,10 @@ export default class List extends Lightning.Component {
                     text:'Touch list'
                 }
             },
-            Items:{
-                x: 30, y: 50
+            List:{
+                y: 550, type: List
             }
         };
-    }
-
-    _init(){
-        this.tag("Items").children = new Array(50).fill('').map((el, index)=>{
-            return {
-                type: Item, x: index * 240, idx: index
-            }
-        });
     }
 
     _active(){
@@ -46,12 +38,11 @@ export default class List extends Lightning.Component {
     }
 
     swipeLeft(recording){
+        const {delta, duration} = recording;
         this.tag("Items").setSmooth('x', -5000,{duration:1});
-        console.log("list swipe?")
     }
 
     swipeRight(recording){
         this.tag("Items").setSmooth('x', 0, {duration:2});
-
     }
 }

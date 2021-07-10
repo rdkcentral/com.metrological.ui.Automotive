@@ -1,15 +1,15 @@
-import {Lightning} from "@lightningjs/sdk";
-import {Button, List} from "../lib/automotive/components";
+import {Lightning, Router} from "@lightningjs/sdk";
+import {Button1, List} from "../lib/automotive/components";
 
 const rand = (min, max)=>{
     return ~~(Math.random()* (max - min)) + min
 }
 
-export default class Home extends Lightning.Component{
+export default class ButtonsDemo extends Lightning.Component{
     static _template(){
         return {
             rect: true, w: 1920, h: 1080,
-            color: 0xff20639B,
+            colorTop: 0xff9055ff, colorBottom: 0xff13e2da,
             Label:{
                 alpha: 0.4,
                 x: 960, y: 480, mount: 0.5,
@@ -27,42 +27,41 @@ export default class Home extends Lightning.Component{
             ButtonsTitle:{
                 x: 30, y: 20,
                 text:{
-                    text:'Buttons'
+                    text:'Automotive button demo', fontFace:'julius'
                 }
             },
             Buttons:{
                 y: 100
-            },
-            List:{
-                y: 550, type: List
             }
         }
     }
 
     _init(){
         this.count = 0;
-        this.tag("Buttons").children = new Array(6).fill('').map((el, index)=>{
+        this.tag("Buttons").children = new Array(14).fill('').map((el, index)=>{
             return {
-                type: Button, x: index % 7 * 315 + 30, y: ~~(index/7)*300, w: 275, h: 275
+                type: Button1, x: index % 7 * 315 + 30, y: ~~(index/7)*300, w: 275, h: 275
             }
         })
     }
 
-    _onSingleTap(recording){
-        this.tag("Label").text = "SINGLE TAP"
+    pageTransition(){
+        return "left";
     }
 
-    _onDoubleTap(){
-        this.tag("Label").text = "DOUBLE TAP"
+    swipeLeft(){
+        // block
     }
 
-    _onMultiTap(recording){
-        this.tag("Label").text = `${recording.fingersTouched} FINGERS TAP`
+    swipeUp(){
+        // block
     }
 
-    _onMultiLongpress(recording){
-        this.tag("Label").text = `${recording.fingersTouched} FINGERS LONGPRESS`
+    swipeRight(){
+        Router.navigate("main")
     }
 
-
+    swipeDown(){
+        // block
+    }
 }

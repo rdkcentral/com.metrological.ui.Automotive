@@ -48,6 +48,6 @@ export default class Item extends Lightning.Component {
     }
 
     set idx(v){
-        this.tag("Label").text = `ITEM: ${v}`
+        this.tag("Label").text = `${v}`
     }
 }

@@ -84,7 +84,7 @@ export default class Recording {
         return this._endtime;
     }
 
-    get timedelta() {
+    get duration() {
         return this.endtime - this.starttime;
     }
 
@@ -94,14 +94,6 @@ export default class Recording {
 
     get isTap() {
         return this._isTap;
-    }
-
-    set isAnalyzed(v) {
-        this._isAnalyzed = v;
-    }
-
-    get isAnalyzed() {
-        return this._isAnalyzed;
     }
 
     set isHold(v) {

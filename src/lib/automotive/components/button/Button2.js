@@ -1,15 +1,9 @@
-import {Lightning} from "@lightningjs/sdk";
+import {Lightning, Utils} from "@lightningjs/sdk";
 
 export default class Button extends Lightning.Component {
     static _template() {
         return {
-            rect: true, alpha: 0.2, collision: true,
-            Label:{
-                mount:0.5, x: 150, y: 150,
-                text:{
-                    text:''
-                }
-            }
+            src: Utils.asset('images/direction.png')
         };
     }
 
@@ -85,7 +79,7 @@ export default class Button extends Lightning.Component {
             }).start();
             this._dragStarted = true;
         }
-        const {x, y} = recording.delta;
+        const {x, y} = recording.distance;
         const {x: startX, y: startY} = this.restore;
         this.x = startX + x;
         this.y = startY + y;

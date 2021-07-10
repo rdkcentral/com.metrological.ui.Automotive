@@ -1,6 +1,6 @@
 
 import {
-    Home
+    Main, ButtonDemo, ListDemo
 } from '@/pages';
 
 
@@ -10,11 +10,9 @@ export default {
             resolve();
         })
     },
-    // bootComponent:Boot,
-    // root: "home",
     root: async ()=>{
         return {
-            path: "home"
+            path: "main"
         }
     },
     beforeEachRoute: (from, to)=>{
@@ -25,8 +23,11 @@ export default {
     },
     routes: [
         {
-            path: 'home',
-            component: Home,
+            path: 'main',
+            component: Main,
+        },{
+            path: 'buttonsdemo',
+            component: ButtonDemo,
         },
         // {
         //     path: '*',
