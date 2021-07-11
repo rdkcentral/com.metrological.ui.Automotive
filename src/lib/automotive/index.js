@@ -1,7 +1,8 @@
-import {Registry, Log, Router} from "@lightningjs/sdk";
+import {Registry, Log} from "@lightningjs/sdk";
 import {Recording} from "./models";
 import {analyzeEnded, resetRecordings} from "./analyzer";
 import {getTouchedElements, getAllTouchedElements} from "./helpers";
+import Events from "../Events"
 
 let application = null;
 export let config = new Map();
@@ -83,24 +84,20 @@ const handleTouchStart = (event) => {
  * @param event
  */
 const handleTouchEnd = () => {
-    let recording = activeRecording;
-    Log.info(`touchend`);
-    // flag that at least one finger stopped touching the screen
-    touchStarted = false;
-
     // if touchend occurs while bridge is still open
     // we create a new recording
     if (isBridgeOpen()) {
-        // start new recording session
-        recording = startRecording(lastTouchStartEvent);
-        activeRecording = recording;
+        closeBridge();
     }
 
+    Log.info(`touchend`);
+    touchStarted = false;
+
     // store end time
-    recording.endtime = Date.now();
+    activeRecording.endtime = Date.now();
 
     // start analyzing
-    analyzeEnded(recording);
+    analyzeEnded(activeRecording);
 
     // reset sticky element
     stickyElements.length = 0;
