@@ -1,6 +1,6 @@
 import {Lightning} from "@lightningjs/sdk";
 import {Item} from "../index";
-import {Vector} from "../../models";
+import createVector from "../../models/vector";
 
 export default class List extends Lightning.Component {
     static _template() {
@@ -22,7 +22,7 @@ export default class List extends Lightning.Component {
     }
 
     _active(){
-        this._current = new Vector(this.tag("Items").x,this.tag("Items").y)
+        this._current = createVector(this.tag("Items").x,this.tag("Items").y)
     }
 
     _onDrag(recording){
@@ -32,7 +32,7 @@ export default class List extends Lightning.Component {
     }
 
     _onDragEnd(){
-        this._current = new Vector(
+        this._current = createVector(
             this.tag("Items").x,this.tag("Items").y
         )
     }

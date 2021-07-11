@@ -1,6 +1,6 @@
 import {Registry} from "@lightningjs/sdk";
-import {Finger} from "./";
-import Vector from "./Vector";
+import createFinger from "./finger";
+import createVector from "./vector";
 import {sticky, config} from "../index";
 
 export default class Recording {
@@ -13,7 +13,7 @@ export default class Recording {
 
         for (let i = 0; i < len; i++) {
             const touch = touches[i];
-            fingers.set(touch.identifier, new Finger(touch));
+            fingers.set(touch.identifier, createFinger(touch));
         }
         this._fingers = fingers;
 
@@ -132,7 +132,7 @@ export default class Recording {
         if (finger) {
             return finger.delta;
         } else {
-            return new Vector(0, 0);
+            return createVector(0.0, 0.0);
         }
     }
 }
