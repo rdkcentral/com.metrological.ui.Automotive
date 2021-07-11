@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-
+import Events from "@/lib/Events";
 export default class Button extends Lightning.Component {
     static _template() {
         return {
@@ -66,10 +66,9 @@ export default class Button extends Lightning.Component {
      */
     _onLongpress(recording) {
         this.animation({
-            duration: 2, actions: [
-                {p: 'color', v: {0: 0xff000000, 9: 0xff000000, 1: 0xffffffff}},
+            duration: 0.7, actions: [
                 {p: 'alpha', v: {0: 1, 9: 1, 1: 0.2}},
-                {p: 'scale', v: {0: 1, 0.5: 3, 1: 1}},
+                {p: 'scale', v: {0: 1, 0.5: 1.2, 1: 1}},
             ]
         }).start();
     }
@@ -91,27 +90,27 @@ export default class Button extends Lightning.Component {
         this.y = startY + y;
     }
 
-    _onDragStart() {
-
-    }
+    _onDragStart() { }
 
     _onDragEnd() {
         setTimeout(()=>{
             this.patch({
                 smooth: {
                     x: [this.restore.x, {delay: 1}],
-                    y: [this.restore.y, {delay: 1}],
+                    y: [this.restore.y, {delay: 1}]
                 }
             });
             this._dragStarted = false;
         }, 800)
+        this.color = 0xffffffff;
+        this.alpha = 0.2;
     }
     /**
      * @todo: better blocking solution
      */
 
     swipeLeft(){
-       this.setSmooth('x', -1000, {duration:0.4, timingFunction:'linear'})
+
     }
 
     swipeUp(){
