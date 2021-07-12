@@ -116,7 +116,7 @@ export default (event) => {
         get moved() {
             return moved;
         },
-        set moved(v){
+        set moved(v) {
             moved = v;
         },
         get isHold() {

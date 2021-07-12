@@ -1,6 +1,6 @@
 import {Registry} from "@lightningjs/sdk";
 import {dispatch, config, sticky} from "./index";
-import {swipes} from "./gestures";
+import {getSwipe} from "./gestures";
 import {distance} from "./helpers";
 import Events from "../Events";
 
@@ -53,26 +53,21 @@ export const analyzeEnded = (recording) => {
         dispatch('_onLongpress', recording);
     } else  {
         // start analyzing as a swipe
-        const analyzed = swipes.map((swipe) => {
-            return swipe(recording);
-        }).filter(Boolean);
+        const analyzed = getSwipe(recording);
 
         // if we recognized a swipe
-        if (analyzed.length) {
-            const data = analyzed[0];
+        if (analyzed) {
             let blocked = false;
-
             if(config.get('componentBlockBroadcast')){
                 blocked = sticky(
-                    data.event, data.recording
+                    analyzed.event, analyzed.recording
                 );
             }
             // if the event is not being handled by an touched component
             // or the function return false explicit broadcast the event
             if(blocked === false){
-                Events.broadcast(data.event, data.recording);
+                Events.broadcast(analyzed.event, analyzed.recording);
             }
-
         }
     }
 };

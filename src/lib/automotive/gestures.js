@@ -1,72 +1,44 @@
 import {config} from "./index";
 
-export const isSwipeLeft = (recording) => {
-    return isSwipeInDirection({
-        x: (x) => {
-            return x < config.get('distanceHorizontalSwipe') * -1;
-        },
-        y: (y) => {
-            return Math.abs(y) < 100;
-        },
-        event: 'swipeLeft',
-        recording
-    });
-};
-
-const isSwipeRight = (recording) => {
-    return isSwipeInDirection({
-        x: (x) => {
-            return x > config.get('distanceHorizontalSwipe');
-        },
-        y: (y) => {
-            return Math.abs(y) < 100;
-        },
-        event: 'swipeRight',
-        recording
-    });
-};
-
-export const isSwipeUp = (recording) => {
-    return isSwipeInDirection({
-        x: (x) => {
-            return Math.abs(x) < 100;
-        },
-        y: (y) => {
-            return y < config.get('distanceVerticalSwipe') * -1;
-        },
-        event: 'swipeUp',
-        recording
-    });
-};
-
-export const isSwipeDown = (recording) => {
-    return isSwipeInDirection({
-        x: (x) => {
-            return Math.abs(x) < 100;
-        },
-        y: (y) => {
-            return y > config.get('distanceVerticalSwipe');
-        },
-        event: 'swipeDown',
-        recording
-    });
-};
-
-const isSwipeInDirection = ({x: fnx, y: fny, event, recording}) => {
+export const getSwipe = (recording) => {
     let identified;
+    let direction;
+
     const fingers = recording.fingers;
+    const hTreshold = config.get('swipeTresholdHorizontal');
+    const vTreshold = config.get('swipeTresholdVertical');
+
     for (let finger of fingers.values()) {
-        // if one finger moves according to expected gesture
-        // we flag the recording as identified
-        // we may need to check each individual finger in the future
-        if(fnx(finger.delta.x) && fny(finger.delta.y)){
+        const x1 = finger.start.x;
+        const y1 = finger.start.y;
+        const x2 = finger.end.x;
+        const y2 = finger.end.y;
+        const rDisx = x2 - x1;
+        const rDisy = y2 - y1;
+        const aDisx = Math.abs(rDisx);
+        const aDisy = Math.abs(rDisy);
+        const diff = aDisx > aDisy ? aDisy / aDisx : aDisx / aDisy;
+        let valid = false;
+
+        if (aDisx > aDisy) {
+            direction = rDisx <= 0 ? 'Left' : 'Right';
+            valid = hTreshold < aDisx;
+        } else {
+            direction = rDisy <= 0 ? 'Up' : 'Down';
+            valid = vTreshold < aDisy;
+        }
+
+        // @todo: do we really want to test for normalized distance?
+        if (valid && diff < 0.4) {
             identified = true;
             break;
         }
     }
+
     if (identified) {
         return {
-            event, recording
+            event: `swipe${direction}`,
+            recording
         };
     } else {
         return false;
@@ -77,7 +49,3 @@ const isSwipeInDirection = ({x: fnx, y: fny, event, recording}) => {
 export const isPotentialPinch = (recording) => {
     return recording.fingersTouched === 2;
 };
-
-export const swipes = [
-    isSwipeLeft, isSwipeRight, isSwipeUp, isSwipeDown
-];

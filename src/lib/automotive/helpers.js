@@ -130,7 +130,9 @@ export const getConfigMap = () => {
         "distanceHorizontalSwipe",
         "distanceVerticalSwipe",
         "externalTouchScreen",
-        "componentBlockBroadcast"
+        "componentBlockBroadcast",
+        "swipeTresholdHorizontal",
+        "swipeTresholdVertical"
     ].reduce((config, key) => {
         config.set(key, automotiveSettings[key]);
         return config;

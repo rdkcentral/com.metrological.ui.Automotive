@@ -20,7 +20,9 @@
       "distanceHorizontalSwipe": 100,
       "distanceVerticalSwipe": 100,
       "externalTouchScreen": true,
-      "componentBlockBroadcast": true
+      "componentBlockBroadcast": true,
+      "swipeTresholdHorizontal": 100,
+      "swipeTresholdVertical": 100
     }
   }
 }
