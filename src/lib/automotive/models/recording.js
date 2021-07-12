@@ -152,6 +152,5 @@ export default (event) => {
             }
         }
     };
-
     return record;
 }

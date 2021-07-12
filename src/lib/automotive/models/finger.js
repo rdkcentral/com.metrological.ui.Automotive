@@ -2,14 +2,14 @@ import {createVector} from "./index";
 
 export default (data)=>{
     let identifier = data.identifier;
-    const startPosition = createVector(data.screenX, data.screenY);
+    const startPosition = createVector(data.clientX, data.clientY);
     let currentPosition = startPosition;
     let delta = createVector(0.0, 0.0);
     let moveRegistered = false;
     let moved = false;
 
     const update = (data) =>{
-        currentPosition = createVector(data.screenX, data.screenY);
+        currentPosition = createVector(data.clientX, data.clientY);
         delta = currentPosition.subtract(
             startPosition
         );
