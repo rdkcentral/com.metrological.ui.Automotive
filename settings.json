@@ -18,12 +18,10 @@
     "automotive": {
       "bridgeCloseTimeout": 110,
       "tapDelay": 80,
-      "doubleTapActive": true,
+      "doubleTapActive": false,
       "beforeDoubleTapDelay": 180,
       "flagAsHoldDelay": 800,
       "doubleTapMaxDistance": 40,
-      "distanceHorizontalSwipe": 100,
-      "distanceVerticalSwipe": 100,
       "externalTouchScreen": true,
       "componentBlockBroadcast": true,
       "swipeXTreshold": 150,

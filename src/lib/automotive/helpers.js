@@ -128,8 +128,6 @@ export const getConfigMap = () => {
         "beforeDoubleTapDelay",
         "flagAsHoldDelay",
         "doubleTapMaxDistance",
-        "distanceHorizontalSwipe",
-        "distanceVerticalSwipe",
         "externalTouchScreen",
         "componentBlockBroadcast",
         "swipeXTreshold",

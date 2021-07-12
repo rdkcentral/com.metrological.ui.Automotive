@@ -146,10 +146,10 @@ Define if components an block global events by adding it to itself as class memb
 
 Amount of milliseconds that need to be passed to start flagging recording as a hold; for drag / pinch / long hold
 
-##### distanceHorizontalSwipe
+##### swipeXTreshold
 
-Minimal amount of pixel one or more fingers need to travel before it's gets recognized as a horizontal swipe
+Minimal amount of pixel one or more fingers need to travel before it's gets recognized as a swipe along the x-axis
 
-##### distanceVerticalSwipe
+##### swipeYTreshold
 
-Minimal amount of pixel one or more fingers need to travel before it's gets recognized as a vertical swipe
+Minimal amount of pixel one or more fingers need to travel before it's gets recognized as a swipe along the y-axis
