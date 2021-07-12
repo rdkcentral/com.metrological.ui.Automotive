@@ -124,6 +124,7 @@ export const getConfigMap = () => {
     return [
         "bridgeCloseTimeout",
         "tapDelay",
+        "doubleTapActive",
         "beforeDoubleTapDelay",
         "flagAsHoldDelay",
         "doubleTapMaxDistance",

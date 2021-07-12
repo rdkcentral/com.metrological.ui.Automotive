@@ -18,6 +18,7 @@
     "automotive": {
       "bridgeCloseTimeout": 110,
       "tapDelay": 80,
+      "doubleTapActive": true,
       "beforeDoubleTapDelay": 180,
       "flagAsHoldDelay": 800,
       "doubleTapMaxDistance": 40,
