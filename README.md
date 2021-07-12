@@ -31,37 +31,85 @@ During development you can use the **watcher** functionality of the _Lightning-C
 This Library provides examples on how to build interactivity for a multi-touch touchscreen. The library
 records and analyzes all fingers and it's movement ( there seems to be a hard limit in browser that it tacks max 10 fingers)
 
-Once the analyser recognizes a gesture it tries to dispatch that event on one of the active touched elements.
+Once the analyser recognizes a gesture it tries to dispatch that event on one of the active touched elements. De first argument of the function is the `record` instance that holds a lot  of data of the recording
+(startposition / duration / data for every finger etc)
 
 ### Available events
 
-#### _onSingleTap()
+##### _onSingleTap()
 
 Will be called when one finger quickly touches this element
 
-#### _onMultiTap()
+##### _onMultiTap()
 
 Will be called when mutliple fingers quickly touches this element
 
-#### _onDoubleTap()
+##### _onDoubleTap()
 
 When one finger quickly double taps the same element
 
-#### _onLongpress()
+##### _onLongpress()
 
 Will be invoked if one or more fingers are pressing this element for < 800ms. For  now the recording data holds data for all the fingers so it could be that 3 fingers are touching 3 individual elements they all receive
 
-#### _onDrag()
+##### _onDrag()
 
 Will be invoked when you touch an element and start moving your finger
 
-#### _onDragEnd()
+##### _onDragEnd()
 
 When you stop dragging an element
 
 ---
 
+### Global events:
+
+Beside the local events described above there are a couple of global events your app can Listen to.
+As long as the `Events` plugin is not a part of the SDK you need to import it form `lib` folder:
+
+```js
+import Events from "@/lib/Events";
+```
+
+
+##### swipeLeft
+
+```js
+Events.listen('App', 'swipeLeft', (recording) => {
+    const page = Router.getActivePage();
+    page.animation({
+        duration: 2, actions: [
+            {p: 'x', v: {0: 0, 0.1: -1920, 0.8: -1920, 1: 0}}
+        ]
+    }).start();    
+    this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE LEFT`;
+});
+```
+
+##### swipeRight
+
+```js
+Events.listen('App', 'swipeRight', (recording) => { ... });
+```
+
+##### swipeUp
+
+```js
+Events.listen('App', 'swipeUp', (recording) => { ... });
+```
+
+#### swipeDown
+
+```js
+Events.listen('App', 'swipeUp', (recording) => { ... });
+```
+
+It's also possible to block the global event by adding the eventname
+as a class member to a component as adding `"componentBlockBroadcast": true` to 
+the platform settings
+
 ### Platform settings:
+
 
 ##### bridgeCloseTimeout
 
@@ -73,9 +121,26 @@ the screen. All touches within the list while the bridge is open will be recorde
 Max Amount of milliseconds between touchstart / end to be flagged
 
 
+##### doubleTapActive
+
+Flag if the Ui needs to listen to `doubleTap` (the benefit for disabling is a more snappy Ui since a tap can immediately be invoked)
+
 ##### beforeDoubleTapDelay
 
 Max amount of milliseconds that a touchstart can start after a tap flag to be flagged as a double tap
+
+##### doubleTapMaxDistance
+
+Max distance between 2 taps to be flagged as double tap
+
+##### externalTouchScreen
+
+Are you using an external touchscreen. This feature has been specially added for beetronics screens
+under OSX.
+
+##### componentBlockBroadcast
+
+Define if components an block global events by adding it to itself as class member
 
 ##### flagAsHoldDelay
 

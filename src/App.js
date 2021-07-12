@@ -1,7 +1,7 @@
 import {Router, Utils} from "@lightningjs/sdk";
 import {initAutomotive} from "./lib/automotive";
 import routes from "./lib/routes";
-import Events from "./lib/Events";
+import Events from "@/lib/Events";
 import {getConfigMap} from "./lib/automotive/helpers";
 
 export default class App extends Router.App {

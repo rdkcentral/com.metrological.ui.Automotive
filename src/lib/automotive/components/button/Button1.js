@@ -110,7 +110,7 @@ export default class Button extends Lightning.Component {
      */
 
     swipeLeft(){
-
+        
     }
 
     swipeUp(){
