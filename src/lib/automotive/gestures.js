@@ -5,8 +5,8 @@ export const getSwipe = (recording) => {
     let direction;
 
     const fingers = recording.fingers;
-    const hTreshold = config.get('swipeTresholdHorizontal');
-    const vTreshold = config.get('swipeTresholdVertical');
+    const xTreshold = config.get('swipeXTreshold');
+    const yTreshold = config.get('swipeYTreshold');
 
     for (let finger of fingers.values()) {
         const x1 = finger.start.x;
@@ -22,10 +22,10 @@ export const getSwipe = (recording) => {
 
         if (aDisx > aDisy) {
             direction = rDisx <= 0 ? 'Left' : 'Right';
-            valid = hTreshold < aDisx;
+            valid = xTreshold < aDisx;
         } else {
             direction = rDisy <= 0 ? 'Up' : 'Down';
-            valid = vTreshold < aDisy;
+            valid = yTreshold < aDisy;
         }
 
         // @todo: do we really want to test for normalized distance?
