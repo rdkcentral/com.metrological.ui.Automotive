@@ -14,7 +14,7 @@ export default class Main extends Lightning.Component{
                 alpha: 0.4,
                 x: 960, y: 550, mount: 0.5,
                 text:{
-                    text:'Autmotive interaction demo', fontSize: 60, fontFace:'julius'
+                    text:'Automotive interaction demo', fontSize: 60, fontFace:'julius'
                 }
             },
             Interaction:{
