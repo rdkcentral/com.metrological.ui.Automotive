@@ -18,30 +18,35 @@ export default class List extends Lightning.Component {
                 type: Item, x: index * 240, idx: index, startX: index * 240
             }
         });
-
         this.maxListDistance = 50 * 240;
     }
 
     _active(){
-        this._current = createVector(this.tag("Items").x,this.tag("Items").y)
+        this._current = createVector(
+            this.tag("Items").x,this.tag("Items").y
+        );
     }
 
     _onDrag(recording){
         const {delta} = recording;
         this.items.forEach((item)=>{
             item.x = item.startX + delta.x;
-        })
+        });
     }
 
     _onDragEnd(){
         this.items.forEach((item)=>{
             item.startX = item.x;
-        })
+        });
     }
 
     swipeLeft(recording){
         const absoluteDistance = Math.abs(recording.delta.x)
         const velocity = absoluteDistance / recording.duration;
+
+        if(velocity < 0.5){
+            return;
+        }
 
         this.items.forEach((item)=>{
             const position = item.x - (velocity * 500)
@@ -49,12 +54,17 @@ export default class List extends Lightning.Component {
                 duration:0.6, timingFunction:'ease-out'
             });
             item.startX = position;
-        })
+        });
     }
 
     swipeRight(recording){
         const absoluteDistance = Math.abs(recording.delta.x)
         const velocity = absoluteDistance / recording.duration;
+
+        if(velocity < 0.5){
+            return;
+        }
+
         this.items.forEach((item)=>{
             const position = item.x + (velocity * 500)
             item.setSmooth('x', position , {

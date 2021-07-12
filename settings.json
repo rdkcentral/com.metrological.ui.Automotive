@@ -11,6 +11,10 @@
     "path": "./static",
     "log": true,
     "showVersion": true,
+    "router": {
+      "lazyCreate": true,
+      "lazyDestroy:": false
+    },
     "automotive": {
       "bridgeCloseTimeout": 110,
       "tapDelay": 80,

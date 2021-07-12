@@ -9,7 +9,7 @@ export default class ButtonsDemo extends Lightning.Component{
     static _template(){
         return {
             rect: true, w: 1920, h: 1080,
-            colorTop: 0xff9055ff, colorBottom: 0xff13e2da,
+            colorTop: 0xff185a9d, colorBottom: 0xff43cea2,
             ButtonsTitle:{
                 x: 30, y: 20,
                 text:{
@@ -35,8 +35,6 @@ export default class ButtonsDemo extends Lightning.Component{
                 type: Button1, x: index % 7 * 315 + 30, y: ~~(index/7)*315, w: 275, h: 275, idx: index
             }
         })
-
-
     }
 
     pageTransition(){
@@ -44,7 +42,7 @@ export default class ButtonsDemo extends Lightning.Component{
     }
 
     swipeLeft(){
-        // block
+        Router.navigate("listdemo")
     }
 
     swipeUp(){

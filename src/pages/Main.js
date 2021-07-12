@@ -9,7 +9,7 @@ export default class Main extends Lightning.Component{
     static _template(){
         return {
             w: 1920, h: 1080, rect:true,
-            colorTop: 0xff000000, colorBottom: 0xff6699ff,
+            colorTop: 0xff000428, colorBottom: 0xff6699ff,
             Label:{
                 alpha: 0.4,
                 x: 960, y: 550, mount: 0.5,
@@ -37,7 +37,7 @@ export default class Main extends Lightning.Component{
         this.tag("Interaction").text = "single tap"
     }
 
-    _onDoubleTap(){
+    _onDoubleTap(recording){
         this.tag("Interaction").text = "double tap"
     }
 
@@ -49,11 +49,15 @@ export default class Main extends Lightning.Component{
         this.tag("Interaction").text = `${recording.fingersTouched} fingers longpress`
     }
 
-    swipeLeft(){
+    swipeLeft(recording){
         Router.navigate("buttonsdemo")
     }
 
-    pageTransition(){
+    pageTransition(pageIn, pageOut){
+        const outHash = pageOut[Router.symbols.hash];
+        if(outHash === "listdemo"){
+            return "left"
+        }
         return "right"
     }
 
