@@ -1,6 +1,5 @@
 import {Lightning} from "@lightningjs/sdk";
-import {Item} from "../index";
-import createVector from "../../models/vector";
+import {createVector} from "../../models";
 
 export default class List extends Lightning.Component {
     static _template() {

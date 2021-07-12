@@ -1,8 +1,7 @@
 import {Registry, Log} from "@lightningjs/sdk";
-import {Recording} from "./models";
+import {createRecording} from "./models";
 import {analyzeEnded, resetRecordings} from "./analyzer";
 import {getTouchedElements, getAllTouchedElements} from "./helpers";
-import Events from "../Events"
 
 let application = null;
 export let config = new Map();
@@ -165,10 +164,10 @@ const closeBridge = () => {
 /**
  * Returns a new recording session
  * @param event
- * @returns {Recording}
+ * @returns {}
  */
 const startRecording = (event) => {
-    return new Recording(event);
+    return createRecording(event);
 };
 
 /**

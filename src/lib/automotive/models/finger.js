@@ -1,8 +1,8 @@
-import createVector from "./vector";
+import {createVector} from "./index";
 
 export default (data)=>{
     let identifier = data.identifier;
-    let startPosition = createVector(data.screenX, data.screenY);
+    const startPosition = createVector(data.screenX, data.screenY);
     let currentPosition = startPosition;
     let delta = createVector(0.0, 0.0);
     let moveRegistered = false;
