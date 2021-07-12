@@ -28,6 +28,9 @@ export default {
         },{
             path: 'buttonsdemo',
             component: ButtonDemo,
+        },{
+            path: 'listdemo',
+            component: ListDemo,
         },
         // {
         //     path: '*',
