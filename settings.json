@@ -9,7 +9,7 @@
   },
   "platformSettings": {
     "path": "./static",
-    "log": true,
+    "log": false,
     "showVersion": true,
     "router": {
       "lazyCreate": true,

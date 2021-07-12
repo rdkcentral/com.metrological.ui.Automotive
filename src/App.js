@@ -80,7 +80,6 @@ export default class App extends Router.App {
                     {p: 'x', v: {0: 0, 0.1: -1920, 0.8: -1920, 1: 0}}
                 ]
             }).start();
-
             this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE LEFT`;
         });
 
@@ -114,6 +113,7 @@ export default class App extends Router.App {
             }).start();
             this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE DOWN`;
         });
+
     }
 }
 

@@ -1,6 +1,6 @@
 import {Lightning, Router} from "@lightningjs/sdk";
 import {Button2} from "../lib/automotive/components";
-
+import Events from "../lib/Events"
 const rand = (min, max)=>{
     return ~~(Math.random()* (max - min)) + min
 }
@@ -33,6 +33,18 @@ export default class Main extends Lightning.Component{
         }
     }
 
+    _init(){
+        Events.listen('App', 'pinch', ({distance, angle}) => {
+            // @todo: screen width
+            const level = (distance / 1920) * 6;
+            this.scale = level < 0.2 ? 1 : 1 + level;
+            this.rotation = angle;
+
+            this.tag("Interaction").text = `PINCHING ${this.scale}`;
+
+        });
+    }
+
     _onSingleTap(recording){
         this.tag("Interaction").text = "single tap"
     }
@@ -60,5 +72,7 @@ export default class Main extends Lightning.Component{
         }
         return "right"
     }
+
+
 
 }
