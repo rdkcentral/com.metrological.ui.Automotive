@@ -1,35 +1,44 @@
-import {Lightning} from "@lightningjs/sdk";
-import {Button1} from "../lib/automotive/components";
+import {Lightning, Router} from "@lightningjs/sdk";
+import {List} from "../lib/automotive/components";
 
-const rand = (min, max)=>{
-    return ~~(Math.random()* (max - min)) + min
-}
-
-export default class Home extends Lightning.Component{
+export default class ListDemo extends Lightning.Component{
     static _template(){
         return {
-            shader: {
-                type: lng.shaders.RadialGradient, pivotX: 1, outerColor: 0xffff0000, innerColor: 0xff0000ff
-            },
-            Label:{
-                alpha: 0.4,
-                x: 960, y: 480, mount: 0.5,
+            rect:true, w: 1920, h: 1080,
+            colorLeft: 0xff4568dc, colorRight: 0xffb06ab3,
+            ListTitle:{
+                x: 30, y: 20,
                 text:{
-                    text:'Autmotive interaction demo', fontSize: 60, fontFace:'julius'
+                    text:'Automotive list demo', fontFace:'julius'
                 }
             },
-            Buttons:{
-                y: 100
+            List1:{
+                type: List
+            },
+            List2:{
+                y: 400, type: List
             }
         }
     }
 
-    _init(){
-        this.count = 0;
-        this.tag("Buttons").children = new Array(30).fill('').map((el, index)=>{
-            return {
-                type: Button1, x: index % 7 * 315 + 30, y: ~~(index/7)*300, w: 275, h: 275
-            }
-        })
+    pageTransition(){
+        return "left";
     }
+
+    swipeLeft(){
+        Router.navigate("main")
+    }
+
+    swipeUp(){
+        // block
+    }
+
+    swipeRight(){
+        Router.navigate("main")
+    }
+
+    swipeDown(){
+        // block
+    }
+
 }
