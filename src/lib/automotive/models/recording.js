@@ -1,6 +1,8 @@
 import {Registry} from "@lightningjs/sdk";
 import {createFinger, createVector} from "./index";
 import {sticky, config} from "../index";
+import {distance} from "../helpers";
+import Events from "../../Events";
 
 export default (event) => {
     const starttime = Date.now();
@@ -9,7 +11,6 @@ export default (event) => {
     const len = touches.length;
     let endtime = Date.now();
     let isTap = false;
-
     /**
      * Is user long holding the screen
      * @type {boolean}
@@ -21,6 +22,8 @@ export default (event) => {
      * @type {boolean}
      */
     let moved = false;
+
+    let isPinched = false;
 
     // register every finger
     for (let i = 0; i < len; i++) {
@@ -68,6 +71,13 @@ export default (event) => {
                 sticky('_onDrag', record);
             }, 1);
         }
+
+        const pinch = getPinch();
+
+        if (pinch) {
+            Events.broadcast("pinch", pinch);
+            isPinched = true;
+        }
     };
 
     const hasFingerMoved = () => {
@@ -75,6 +85,43 @@ export default (event) => {
             if (finger.moved) {
                 return true;
             }
+        }
+        return false;
+    };
+
+    const getPinch = () => {
+        if (fingers.size !== 2) {
+            return false;
+        }
+        let f1, f2;
+        for (let finger of fingers.values()) {
+            if (!f1) {
+                f1 = finger;
+            } else {
+                f2 = finger;
+            }
+        }
+
+        if (f1.queue.length < 10 || f2.queue.length < 10) {
+            return false;
+        }
+
+        const {queue: f1q, start: f1s, position: f1p} = f1;
+        const {queue: f2q, start: f2s, position: f2p} = f2;
+        const f1hDis = distance(f1q[0], f1q[~~(f1q.length / 2)]);
+        const f2hDis = distance(f2q[0], f2q[~~(f2q.length / 2)]);
+        const f1Dis = distance(f1q[0], f1q[f1q.length - 1]);
+        const f2Dis = distance(f2q[0], f2q[f2q.length - 1]);
+        const sDis = distance(f1s, f2s);
+        const cDis = distance(f1p, f2p);
+
+        if (cDis > sDis && cDis - sDis > 30 && f1Dis > f1hDis && f2Dis > f2hDis) {
+            const angle = Math.atan2(f1p.y - f2p.y, f1p.x - f2p.x);
+            const start = Math.atan2(f1s.y - f2s.y, f1s.x - f2s.x);
+            return {
+                distance: cDis - sDis,
+                angle: angle - start
+            };
         }
         return false;
     };

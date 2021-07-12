@@ -8,6 +8,19 @@ export default (data)=>{
     let moveRegistered = false;
     let moved = false;
 
+    /**
+     * flag if finger is part of pinching gesture
+     * @type {boolean}
+     */
+    let pinching = false;
+
+    /**
+     * Cue that hold the last 10 touches to track
+     * if two fingers make a pinch gesture
+     * @type {Array}
+     */
+    const touchQueue = [];
+
     const update = (data) =>{
         currentPosition = createVector(data.clientX, data.clientY);
         delta = currentPosition.subtract(
@@ -19,7 +32,15 @@ export default (data)=>{
                 moved = true;
             }
         }
-    }
+
+        touchQueue.unshift(currentPosition);
+
+        // make sure we only hold last touch positions
+        if(touchQueue.length > 10){
+            touchQueue.pop();
+        }
+    };
+
     return {
         update,
         get moved() {
@@ -39,6 +60,12 @@ export default (data)=>{
         },
         get delta() {
             return delta;
+        },
+        get queue(){
+            return touchQueue;
+        },
+        get pinching(){
+            return pinching;
         }
     }
 }
