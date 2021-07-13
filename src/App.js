@@ -113,7 +113,6 @@ export default class App extends Router.App {
             }).start();
             this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE DOWN`;
         });
-
     }
 }
 

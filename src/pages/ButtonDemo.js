@@ -1,15 +1,11 @@
 import {Lightning, Router} from "@lightningjs/sdk";
 import {Button1} from "../lib/automotive/components";
 
-const rand = (min, max)=>{
-    return ~~(Math.random()* (max - min)) + min
-}
-
 export default class ButtonsDemo extends Lightning.Component{
     static _template(){
         return {
             rect: true, w: 1920, h: 1080,
-            colorTop: 0xff185a9d, colorBottom: 0xff43cea2,
+            colorTop: 0xff330868, colorBl: 0xff330868, colorRight: 0xff30CFD0,
             ButtonsTitle:{
                 x: 30, y: 20,
                 text:{
@@ -18,12 +14,6 @@ export default class ButtonsDemo extends Lightning.Component{
             },
             Buttons:{
                 y: 100
-            },
-            Details: {
-                x: 30, y: 700,
-                text:{
-                    text:'Automotive button demo', fontFace:'julius', fontSize:22
-                }
             }
         }
     }

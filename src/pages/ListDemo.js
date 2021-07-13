@@ -26,7 +26,7 @@ export default class ListDemo extends Lightning.Component{
     }
 
     swipeLeft(){
-        Router.navigate("main")
+        Router.navigate("mapdemo")
     }
 
     swipeUp(){
@@ -34,7 +34,7 @@ export default class ListDemo extends Lightning.Component{
     }
 
     swipeRight(){
-        Router.navigate("main")
+        Router.navigate("buttonsdemo")
     }
 
     swipeDown(){

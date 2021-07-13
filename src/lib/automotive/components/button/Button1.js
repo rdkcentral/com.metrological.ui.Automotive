@@ -6,8 +6,8 @@ export default class Button extends Lightning.Component {
             rect: true, alpha: 0.2, collision: true,
             Label:{
                 mount:0.5, x: 150, y: 150,
-                text:{
-                    text:''
+                text:{ fontSize:24,
+                    text:'', fontFace:'julius'
                 }
             }
         };
@@ -34,7 +34,7 @@ export default class Button extends Lightning.Component {
      * @private
      */
     _onMultiTap(recording) {
-        this.tag("Label").text = `${recording.fingersTouched}`
+        this.tag("Label").text = `${recording.fingersTouched} fingers`
         this.animation({
             duration: 2, actions: [
                 {p: 'alpha', v: {0: 1, 9: 1, 1: 0.5}}
@@ -110,7 +110,7 @@ export default class Button extends Lightning.Component {
      */
 
     swipeLeft(){
-        
+
     }
 
     swipeUp(){
