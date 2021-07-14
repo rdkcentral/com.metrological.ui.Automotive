@@ -114,12 +114,13 @@ export default (event) => {
         const f2Dis = distance(f2q[0], f2q[f2q.length - 1]);
         const sDis = distance(f1s, f2s);
         const cDis = distance(f1p, f2p);
+        const rDis = cDis - sDis;
 
-        if (cDis > sDis && cDis - sDis > 30 && f1Dis > f1hDis && f2Dis > f2hDis) {
+        if (Math.abs(rDis) > 30 && f1Dis > f1hDis && f2Dis > f2hDis) {
             const angle = Math.atan2(f1p.y - f2p.y, f1p.x - f2p.x);
             const start = Math.atan2(f1s.y - f2s.y, f1s.x - f2s.x);
             return {
-                distance: cDis - sDis,
+                distance: rDis,
                 angle: angle - start
             };
         }
@@ -138,12 +139,18 @@ export default (event) => {
             return fingers.size;
         },
         set endtime(ms) {
+            endtime = ms;
+
             Registry.clearTimeouts();
             Registry.clearIntervals();
+
             if (isHold) {
                 sticky('_onDragEnd', record);
             }
-            endtime = ms;
+            if (isPinched) {
+                Events.broadcast("pinchEnd", record);
+            }
+
         },
         get endtime() {
             return endtime;
