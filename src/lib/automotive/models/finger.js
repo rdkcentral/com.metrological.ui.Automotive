@@ -1,8 +1,9 @@
 import {createVector} from "./index";
+import {offsetX, offsetY} from "../index";
 
 export default (data)=>{
     let identifier = data.identifier;
-    const startPosition = createVector(data.clientX, data.clientY);
+    const startPosition = createVector(data.clientX + offsetX, data.clientY + offsetY);
     let currentPosition = startPosition;
     let delta = createVector(0.0, 0.0);
     let moveRegistered = false;
@@ -22,7 +23,7 @@ export default (data)=>{
     const touchQueue = [];
 
     const update = (data) =>{
-        currentPosition = createVector(data.clientX, data.clientY);
+        currentPosition = createVector(data.clientX + offsetX, data.clientY + offsetY);
         delta = currentPosition.subtract(
             startPosition
         );

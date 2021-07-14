@@ -71,7 +71,7 @@ export default (event) => {
             Registry.clearTimeouts();
             Registry.setInterval(() => {
                 sticky('_onDrag', record);
-            }, 1);
+            }, 1.5);
         }
 
         const pinch = getPinch();
