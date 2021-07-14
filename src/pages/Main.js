@@ -54,6 +54,8 @@ export default class Main extends Lightning.Component{
         const outHash = pageOut[Router.symbols.hash];
         if(outHash === "listdemo"){
             return "left"
+        }else if(outHash === "mapdemo"){
+            return "down"
         }
         return "right"
     }

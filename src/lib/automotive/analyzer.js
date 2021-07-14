@@ -31,34 +31,34 @@ export const analyzeEnded = (recording) => {
     } else if (!recording.moved) {
         // if we passed tap delay and we haven't moved
         dispatch('_onLongpress', recording);
-    } else  {
+    } else {
         // start analyzing as a swipe
         const analyzed = getSwipe(recording);
 
         // if we recognized a swipe
         if (analyzed) {
             let blocked = false;
-            if(config.get('componentBlockBroadcast')){
+            if (config.get('componentBlockBroadcast')) {
                 blocked = sticky(
                     analyzed.event, analyzed.recording
                 );
             }
             // if the event is not being handled by an touched component
             // or the function return false explicit broadcast the event
-            if(blocked === false){
+            if (blocked === false) {
                 Events.broadcast(analyzed.event, analyzed.recording);
             }
         }
     }
 };
 
-const handleTap = (recording)=>{
+const handleTap = (recording) => {
     // flag recording as tap
     recording.isTap = true;
 
     // if the Ui is not using double tap
     // we can dispatch tap event immediately
-    if(!config.get('doubleTapActive')){
+    if (!config.get('doubleTapActive')) {
         dispatch('_onSingleTap', recording);
         return;
     }
@@ -82,7 +82,7 @@ const handleTap = (recording)=>{
         }, config.get('beforeDoubleTapDelay'));
     }
     lastRecording = recording;
-}
+};
 
 export const resetRecordings = () => {
     lastRecording = null;

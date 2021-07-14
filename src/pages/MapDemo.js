@@ -11,7 +11,7 @@ export default class MapDemo  extends Lightning.Component{
             ButtonsTitle:{
                 x: 30, y: 20,
                 text:{
-                    text:'Automotive Map demo', fontFace:'julius'
+                    text:'Automotive Pinch zoom rotation demo', fontFace:'julius'
                 }
             },
             Scale:{
@@ -30,18 +30,30 @@ export default class MapDemo  extends Lightning.Component{
     }
 
     _active(){
-        this.listenerId = Events.listen('App', 'pinch', ({distance, angle}) => {
+
+        Events.listen('App', 'pinch', ({distance, angle}) => {
             // @todo: screen width
-            const level = (distance / 1920) * 6;
-            this.tag("Image").scale = level < 0.2 ? 1 : 1 + level ;
-            this.tag("Image").rotation = angle ;
+            const level = (distance / 1920) * 6 + 1;
+            this.tag("Image").scale = level > 0 ? level : 0.001;
+
+            this.tag("Image").rotation = angle;
             this.tag("Scale").text = `scale: ${level + 1}`;
-            this.tag("Rotation").text = `rotation: ${angle}`; ;
+            this.tag("Rotation").text = `rotation: ${angle}`;
+        });
+
+        Events.listen('App', 'pinchEnd', (data) => {
+            this.tag("Image").patch({
+                smooth: {
+                    scale:[1,{duration:0.8}], rotation:[0,{duration:0.8}]
+                }
+            })
+            this.tag("Scale").text = ``;
+            this.tag("Rotation").text = ``;
         });
     }
 
     _inactive() {
-        Events.clear(this.listenerId);
+        Events.clear('App', 'pinch')
     }
 
 
@@ -49,24 +61,25 @@ export default class MapDemo  extends Lightning.Component{
         return "left";
     }
 
-    swipeLeft(recording){
+    swipeUp(recording){
         if(recording.fingersTouched === 4){
             Router.navigate("listdemo")
         }
-
     }
 
-    swipeUp(){
+    swipeLeft(){
         // block
     }
 
-    swipeRight(recording){
+    swipeRight(){
+        // block
+    }
+
+    swipeDown(recording){
         if(recording.fingersTouched === 4){
             Router.navigate("main")
         }
     }
 
-    swipeDown(){
-        // block
-    }
+
 }
