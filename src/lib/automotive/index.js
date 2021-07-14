@@ -5,11 +5,16 @@ import {getTouchedElements, getAllTouchedElements} from "./helpers";
 
 let application = null;
 export let config = new Map();
+export let offsetX = 0;
+export let offsetY = 0;
 
 export const initAutomotive = (app, cfg) => {
     disableBrowserBehavior();
     setup(document, app);
     config = cfg;
+
+    offsetX = config.get('viewportOffsetX') * -1 || 0;
+    offsetY = config.get('viewportOffsetY') * -1 || 0;
 };
 
 /**

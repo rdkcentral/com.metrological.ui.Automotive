@@ -25,7 +25,10 @@
       "externalTouchScreen": true,
       "componentBlockBroadcast": true,
       "swipeXTreshold": 150,
-      "swipeYTreshold": 150
+      "swipeYTreshold": 150,
+      "viewportOffsetX": 0,
+      "viewportOffsetY": 57
+
     },
     "imageServerUrl": "//cdn.metrological.com/image"
   }
