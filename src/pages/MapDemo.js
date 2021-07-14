@@ -35,7 +35,7 @@ export default class MapDemo  extends Lightning.Component{
             // @todo: screen width
             const level = (distance / 1920) * 6 + 1;
             this.tag("Image").scale = level > 0 ? level : 0.001;
-
+            
             this.tag("Image").rotation = angle;
             this.tag("Scale").text = `scale: ${level + 1}`;
             this.tag("Rotation").text = `rotation: ${angle}`;
@@ -57,8 +57,12 @@ export default class MapDemo  extends Lightning.Component{
     }
 
 
-    pageTransition(){
-        return "left";
+    pageTransition(i, o){
+        const outHash = o[Router.symbols.hash];
+        if(outHash === "rotatedcollision"){
+            return "right"
+        }
+        return "left"
     }
 
     swipeUp(recording){
@@ -77,7 +81,7 @@ export default class MapDemo  extends Lightning.Component{
 
     swipeDown(recording){
         if(recording.fingersTouched === 4){
-            Router.navigate("main")
+            Router.navigate("rotatedcollision")
         }
     }
 

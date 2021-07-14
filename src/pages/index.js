@@ -2,4 +2,5 @@ export {default as Main} from "./Main";
 export {default as ButtonDemo} from "./ButtonDemo";
 export {default as ListDemo} from "./ListDemo";
 export {default as MapDemo} from "./MapDemo";
+export {default as RotatedCollision} from "./RotatedCollision";
 

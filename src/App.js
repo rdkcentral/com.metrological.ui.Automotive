@@ -15,8 +15,6 @@ export default class App extends Router.App {
         initAutomotive(this.application, getConfigMap());
         Router.startRouter(routes, this);
         this.initListeners();
-
-        console.log(this.stage)
     }
 
     static _template() {
