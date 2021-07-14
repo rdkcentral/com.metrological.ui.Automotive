@@ -101,7 +101,8 @@ const inRange = (affected, x, y) => {
             continue;
         }
 
-        if (testCollision(x, y, cx, cy, cw, ch)) {
+        // @todo: pivot point
+        if(collide(cw, ch, child.rotation, cx + cw / 2, cy + ch / 2, x, y )){
             candidates.push(child);
         }
     }
@@ -118,6 +119,57 @@ export const distance = (v1, v2) => {
     return Math.sqrt(a * a + b * b);
 };
 
+/**
+ * Point to rotated rectangle collision detection
+ * @param rw
+ * @param rh
+ * @param angle
+ * @param rcx
+ * @param rcy
+ * @param px
+ * @param py
+ * @returns {boolean}
+ */
+export const collide = (rw, rh, angle, rcx, rcy, px, py) => {
+    if(angle === 0){
+        return Math.abs(rcx - px) < rw / 2 && Math.abs(rcy-py) < rh/2;
+    }
+
+    const c = Math.cos(angle)
+    const s = Math.sin(angle)
+
+    const tx = c * px - s * py;
+    const ty = c * py + s * px;
+
+    const cx = c * rcx - s * rcy;
+    const cy = c * rcy + s * rcx;
+
+    return Math.abs(cx - tx) < rw / 2 && Math.abs(cy-ty) < rh / 2;
+};
+
+/**
+ * Rotate point around rect origin
+ * @param cx
+ * @param cy
+ * @param angle
+ * @param p
+ * @returns {*}
+ */
+export const rotatePoint = (cx, cy, angle, p)=>{
+    const s = Math.sin(angle);
+    const c = Math.cos(angle);
+
+    p.x -= cx;
+    p.y -= cy;
+
+    const xn = p.x * c - p.y * s;
+    const yn = p.x * s + p.y * c;
+    p.x = xn + cx;
+    p.y = yn + cy;
+
+    return p;
+}
+
 
 export const getConfigMap = () => {
     const automotiveSettings = Settings.get("platform", "automotive");
@@ -131,7 +183,9 @@ export const getConfigMap = () => {
         "externalTouchScreen",
         "componentBlockBroadcast",
         "swipeXTreshold",
-        "swipeYTreshold"
+        "swipeYTreshold",
+        "viewportOffsetX",
+        "viewportOffsetY"
     ].reduce((config, key) => {
         config.set(key, automotiveSettings[key]);
         return config;
