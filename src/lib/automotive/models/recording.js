@@ -25,6 +25,8 @@ export default (event) => {
 
     let isPinched = false;
 
+    let pinchStartDistance = 0;
+
     // register every finger
     for (let i = 0; i < len; i++) {
         const touch = touches[i];
@@ -117,10 +119,13 @@ export default (event) => {
         const rDis = cDis - sDis;
 
         if (Math.abs(rDis) > 30 && f1Dis > f1hDis && f2Dis > f2hDis) {
+            if(!pinchStartDistance){
+                pinchStartDistance = rDis;
+            }
             const angle = Math.atan2(f1p.y - f2p.y, f1p.x - f2p.x);
             const start = Math.atan2(f1s.y - f2s.y, f1s.x - f2s.x);
             return {
-                distance: rDis,
+                distance: rDis - pinchStartDistance,
                 angle: angle - start
             };
         }
