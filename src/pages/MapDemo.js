@@ -1,5 +1,4 @@
-import {Lightning, Router, Utils} from "@lightningjs/sdk";
-import Events from "../lib/Events";
+import {Lightning, Router, Utils, Events} from "@lightningjs/sdk";
 
 export default class MapDemo  extends Lightning.Component{
     static _template(){

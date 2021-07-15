@@ -65,12 +65,22 @@ When you stop dragging an element
 ### Global events:
 
 Beside the local events described above there are a couple of global events your app can Listen to.
-As long as the `Events` plugin is not a part of the SDK you need to import it form `lib` folder:
+
+This app uses an **unreleased** version of the Lightning-SDK that contains an `Events` plugin that will become part of a future Lightning-SDK release.
+
+It can be imported into you App as follows:
 
 ```js
-import Events from "@/lib/Events";
+import { Events } from "@lightningjs/sdk"
 ```
 
+In any component where you've imported the `Events`-plugin you can _listen_ to different events _broadcasted_ by the touch functionality.
+
+The `Events.listen`-method accepts 3 arguments, `namespace`, `event` and a `callback`-function.
+
+- `namespace` always needs be `App`
+- `event` can be any of the events described below (i.e `swipeLeft`, `swipeUp`)
+- `callback` needs to be a function that will receive a `recording`-object as it's parameter
 
 ##### swipeLeft
 

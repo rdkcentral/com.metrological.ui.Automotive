@@ -1,5 +1,5 @@
-import {Lightning, Router} from "@lightningjs/sdk";
-import Events from "@/lib/Events";
+import {Lightning, Router, Events} from "@lightningjs/sdk";
+
 export default class Button extends Lightning.Component {
     static _template() {
         return {
