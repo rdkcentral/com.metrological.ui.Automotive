@@ -220,7 +220,7 @@ const setup = (target, app) => {
  * @param reset
  */
 export const dispatch = (event, recording) => {
-    const touched = getTouchedElements(recording.fingers);
+    const touched = getAllTouchedElements(recording.fingers);
     if (touched.length) {
         touched.forEach((element) => {
             try {
