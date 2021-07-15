@@ -98,8 +98,13 @@ export default class RotatedCollision extends Lightning.Component {
             shape.x + shape.w / 2,
             shape.y + shape.h / 2
         );
-        const p1 = rotatePoint(origin.x, origin.y,  -shape.rotation, {x: ctx.px, y:ctx.py});
-        const t = rotatePoint(origin.x, origin.y, -shape.rotation , {x: finger.position.x, y:finger.position.y});
+        const p1 = rotatePoint(origin.x, origin.y,  -shape.rotation, {
+            x: ctx.px, y:ctx.py
+        });
+        const t = rotatePoint(origin.x, origin.y, -shape.rotation , {
+            x: finger.position.x, y:finger.position.y
+        });
+
         if(
             collide(
                 shape.w,
@@ -131,7 +136,9 @@ export default class RotatedCollision extends Lightning.Component {
     }
 
     swipeLeft(recording) {
-
+        if (recording.fingersTouched === 2) {
+            Router.navigate('main');
+        }
     }
 
     swipeUp() {
