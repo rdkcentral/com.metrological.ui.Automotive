@@ -2,6 +2,6 @@
   "name": "com.metrological.ui.Automotive",
   "description": "AutoMotive",
   "dependencies": {
-    "@lightningjs/sdk": "^4.5.0"
+    "@lightningjs/sdk": "github:rdkcentral/Lightning-SDK#feature/events-plugin"
   }
 }

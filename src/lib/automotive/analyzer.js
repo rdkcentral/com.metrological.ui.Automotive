@@ -1,8 +1,7 @@
-import {Registry} from "@lightningjs/sdk";
+import {Registry, Events} from "@lightningjs/sdk";
 import {dispatch, config, sticky} from "./index";
 import {getSwipe} from "./gestures";
 import {distance} from "./helpers";
-import Events from "../Events";
 
 /**
  * Timeout id for dispatching onTap on touched screen element

@@ -1,8 +1,7 @@
-import {Registry} from "@lightningjs/sdk";
+import {Registry, Events} from "@lightningjs/sdk";
 import {createFinger, createVector} from "./index";
 import {sticky, config} from "../index";
 import {distance} from "../helpers";
-import Events from "../../Events";
 
 export default (event) => {
     const starttime = Date.now();

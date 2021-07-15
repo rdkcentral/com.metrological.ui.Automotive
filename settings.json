@@ -22,7 +22,7 @@
       "beforeDoubleTapDelay": 180,
       "flagAsHoldDelay": 800,
       "doubleTapMaxDistance": 40,
-      "externalTouchScreen": true,
+      "externalTouchScreen": false,
       "componentBlockBroadcast": true,
       "swipeXTreshold": 150,
       "swipeYTreshold": 150,

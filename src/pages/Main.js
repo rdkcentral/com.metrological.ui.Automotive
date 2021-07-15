@@ -1,6 +1,5 @@
-import {Lightning, Router} from "@lightningjs/sdk";
+import {Lightning, Router, Events} from "@lightningjs/sdk";
 import {Button2} from "../lib/automotive/components";
-import Events from "../lib/Events"
 
 export default class Main extends Lightning.Component{
     static _template(){
