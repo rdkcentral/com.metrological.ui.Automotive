@@ -39,6 +39,12 @@ export default class ButtonsDemo extends Lightning.Component{
         // block
     }
 
+
+    _onDoubleTap(){
+        console.log("??")
+    }
+
+
     swipeRight(){
         Router.navigate("main")
     }

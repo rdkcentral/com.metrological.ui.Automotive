@@ -49,6 +49,10 @@ export default class Main extends Lightning.Component{
         Router.navigate("buttonsdemo")
     }
 
+    swipeRight(recording){
+        Router.navigate("rotatedcollision")
+    }
+
     pageTransition(pageIn, pageOut){
         const outHash = pageOut[Router.symbols.hash];
         if(outHash === "listdemo"){

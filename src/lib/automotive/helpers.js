@@ -1,5 +1,6 @@
 import {getApplication} from "./index";
 import {Settings} from "@lightningjs/sdk";
+import createVector from "./models/vector";
 
 /**
  * Return element with the highest zIndex for a map of fingers
@@ -92,6 +93,10 @@ const inRange = (affected, x, y) => {
         const cy = ctx.py * precision;
         const cw = child.finalW * ctx.ta * precision;
         const ch = child.finalH * ctx.td * precision;
+        const rcx = cx + cw / 2;
+        const rcy = cy + ch / 2;
+
+        let isColliding = false;
 
         if (cx > stage.w || cy > stage.h) {
             continue;
@@ -101,8 +106,22 @@ const inRange = (affected, x, y) => {
             continue;
         }
 
-        // @todo: pivot point
-        if(collide(cw, ch, child.rotation, cx + cw / 2, cy + ch / 2, x, y )){
+        if (child.rotation) {
+            const origin = createVector(rcx, rcy);
+            // inverse rectangle point rotation
+            const rp = rotatePoint(origin.x, origin.y, -child.rotation, {
+                x: ctx.px, y: ctx.py
+            });
+            // apply same inversion on touch point
+            const p = rotatePoint(origin.x, origin.y, -child.rotation, {
+                x, y
+            });
+            isColliding = collide(cw, ch, 0, rp.x + cw / 2, rp.y + ch / 2, p.x, p.y);
+        } else {
+            isColliding = collide(cw, ch, child.rotation, rcx, rcy, x, y);
+        }
+
+        if (isColliding) {
             candidates.push(child);
         }
     }
@@ -123,6 +142,8 @@ export const distance = (v1, v2) => {
  * Point to rotated rectangle collision detection
  * @param rw
  * @param rh
+ * @param rx
+ * @param ry
  * @param angle
  * @param rcx
  * @param rcy
@@ -131,12 +152,12 @@ export const distance = (v1, v2) => {
  * @returns {boolean}
  */
 export const collide = (rw, rh, angle, rcx, rcy, px, py) => {
-    if(angle === 0){
-        return Math.abs(rcx - px) < rw / 2 && Math.abs(rcy-py) < rh/2;
+    if (angle === 0) {
+        return Math.abs(rcx - px) < rw / 2 && Math.abs(rcy - py) < rh / 2;
     }
 
-    const c = Math.cos(angle)
-    const s = Math.sin(angle)
+    const c = Math.cos(angle);
+    const s = Math.sin(angle);
 
     const tx = c * px - s * py;
     const ty = c * py + s * px;
@@ -144,7 +165,7 @@ export const collide = (rw, rh, angle, rcx, rcy, px, py) => {
     const cx = c * rcx - s * rcy;
     const cy = c * rcy + s * rcx;
 
-    return Math.abs(cx - tx) < rw / 2 && Math.abs(cy-ty) < rh / 2;
+    return Math.abs(cx - tx) < rw / 2 && Math.abs(cy - ty) < rh / 2;
 };
 
 /**
@@ -155,7 +176,7 @@ export const collide = (rw, rh, angle, rcx, rcy, px, py) => {
  * @param p
  * @returns {*}
  */
-export const rotatePoint = (cx, cy, angle, p)=>{
+export const rotatePoint = (cx, cy, angle, p) => {
     const s = Math.sin(angle);
     const c = Math.cos(angle);
 
@@ -168,7 +189,11 @@ export const rotatePoint = (cx, cy, angle, p)=>{
     p.y = yn + cy;
 
     return p;
-}
+};
+
+export const rand = (min, max) => {
+    return ~~(Math.random() * (max - min)) + min;
+};
 
 
 export const getConfigMap = () => {

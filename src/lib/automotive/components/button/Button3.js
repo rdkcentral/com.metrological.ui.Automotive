@@ -15,6 +15,17 @@ export default class Button extends Lightning.Component {
         this._dragStarted = false;
     }
 
+
+    _onSingleTap() {
+        this.animation({
+            duration: 0.4, actions: [
+                {p: 'alpha', v: {0: 0.5, 0.2: 1, 1: 0.5}},
+                {p: 'scale', v: {0: 1, 0.2: 2.5, 1: 1}},
+            ]
+        }).start();
+    }
+
+
     /**
      * When one finger quickly double taps the same element
      * @private
@@ -75,6 +86,7 @@ export default class Button extends Lightning.Component {
             });
             this._dragStarted = false;
         }, 800)
+
         this.color = 0xffffffff;
         this.alpha = 0.2;
     }
