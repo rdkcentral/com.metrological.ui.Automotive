@@ -1,7 +1,7 @@
 import {Lightning, Router} from "@lightningjs/sdk";
 import {Button1} from "../lib/automotive/components";
 
-export default class ButtonsDemo extends Lightning.Component{
+export default class ButtonDemo extends Lightning.Component{
     static _template(){
         return {
             rect: true, w: 1920, h: 1080,

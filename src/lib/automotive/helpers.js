@@ -138,6 +138,11 @@ export const distance = (v1, v2) => {
     return Math.sqrt(a * a + b * b);
 };
 
+export const smoothstep = (min, max, value) =>{
+    const x = Math.max(0, Math.min(1, (value-min)/(max-min)));
+    return x*x*(3-2*x);
+}
+
 /**
  * Point to rotated rectangle collision detection
  * @param rw
