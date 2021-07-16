@@ -1,6 +1,12 @@
 import {createVector} from "./index";
 import {offsetX, offsetY} from "../index";
 
+/**
+ * Amount of positions we store in queue
+ * @type {number}
+ */
+const touchQueueMaxLength = 70;
+
 export default (data)=>{
     let identifier = data.identifier;
     const startPosition = createVector(data.clientX + offsetX, data.clientY + offsetY);
@@ -27,17 +33,18 @@ export default (data)=>{
         delta = currentPosition.subtract(
             startPosition
         );
-
         if (Math.abs(delta.x) > 40 || Math.abs(delta.y) > 40) {
             if (!moveRegistered) {
                 moved = true;
             }
         }
-
-        touchQueue.unshift(currentPosition);
+        touchQueue.unshift({
+            position: currentPosition,
+            time: Date.now()
+        });
 
         // make sure we only hold last touch positions
-        if(touchQueue.length > 10){
+        if(touchQueue.length > touchQueueMaxLength){
             touchQueue.pop();
         }
     };

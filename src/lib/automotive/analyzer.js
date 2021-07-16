@@ -91,4 +91,32 @@ const isTap = (recording) => {
     return recording.endtime - recording.starttime <= config.get('tapDelay') && !recording.moved;
 };
 
+/**
+ * Analyses the finger's position queue in search for
+ * the last straight line it made before touch ended
+ * @param finger
+ */
+export const findStraightLine = (finger)=>{
+    const queue = finger.queue;
+    const len = queue.length;
+    let last = 0;
+    let affected = 0;
+    for(let i = 0; i < len - 4; i++){
+        const dis = Math.abs(queue[0].position.x - queue[i].position.x);
+        if(dis >= last){
+            last = dis;
+            affected = i;
+        }else{
+            break;
+        }
+    }
+
+    const duration = queue[0].time - queue[affected].time;
+    return {
+        duration, distance: last
+    }
+
+}
+
+
 

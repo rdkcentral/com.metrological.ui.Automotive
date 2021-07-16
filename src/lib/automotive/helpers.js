@@ -200,7 +200,6 @@ export const rand = (min, max) => {
     return ~~(Math.random() * (max - min)) + min;
 };
 
-
 export const getConfigMap = () => {
     const automotiveSettings = Settings.get("platform", "automotive");
     return [

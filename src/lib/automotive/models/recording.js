@@ -109,10 +109,10 @@ export default (event) => {
 
         const {queue: f1q, start: f1s, position: f1p} = f1;
         const {queue: f2q, start: f2s, position: f2p} = f2;
-        const f1hDis = distance(f1q[0], f1q[~~(f1q.length / 2)]);
-        const f2hDis = distance(f2q[0], f2q[~~(f2q.length / 2)]);
-        const f1Dis = distance(f1q[0], f1q[f1q.length - 1]);
-        const f2Dis = distance(f2q[0], f2q[f2q.length - 1]);
+        const f1hDis = distance(f1q[0].position, f1q[~~(f1q.length / 2)].position);
+        const f2hDis = distance(f2q[0].position, f2q[~~(f2q.length / 2)].position);
+        const f1Dis = distance(f1q[0].position, f1q[f1q.length - 1].position);
+        const f2Dis = distance(f2q[0].position, f2q[f2q.length - 1].position);
         const sDis = distance(f1s, f2s);
         const cDis = distance(f1p, f2p);
         const rDis = cDis - sDis;
@@ -208,6 +208,9 @@ export default (event) => {
             } else {
                 return createVector(0.0, 0.0);
             }
+        },
+        get firstFinger(){
+            return fingers?.values()?.next()?.value || null;
         }
     };
     return record;

@@ -1,6 +1,7 @@
 import {Lightning} from "@lightningjs/sdk";
 import {createVector} from "../../models";
 import {Item} from "../index";
+import {findStraightLine} from "../../analyzer";
 
 export default class List extends Lightning.Component {
     static _template() {
@@ -41,15 +42,11 @@ export default class List extends Lightning.Component {
     }
 
     swipeLeft(recording){
-        const absoluteDistance = Math.abs(recording.delta.x)
-        const velocity = absoluteDistance / recording.duration;
-
-        if(velocity < 0.5){
-            return;
-        }
+        const {duration, distance } = findStraightLine(recording.firstFinger);
+        const force = distance / duration * 500;
 
         this.items.forEach((item)=>{
-            const position = item.x - (velocity * 500)
+            const position = item.x - (force)
             item.setSmooth('x', position , {
                 duration:0.6, timingFunction:'ease-out'
             });
@@ -58,20 +55,16 @@ export default class List extends Lightning.Component {
     }
 
     swipeRight(recording){
-        const absoluteDistance = Math.abs(recording.delta.x)
-        const velocity = absoluteDistance / recording.duration;
-
-        if(velocity < 0.5){
-            return;
-        }
+        const {duration, distance } = findStraightLine(recording.firstFinger);
+        const force = distance / duration * 500;
 
         this.items.forEach((item)=>{
-            const position = item.x + (velocity * 500)
+            const position = item.x + (force)
             item.setSmooth('x', position , {
                 duration:0.6, timingFunction:'ease-out'
             });
             item.startX = position;
-        })
+        });
     }
 
     get items(){

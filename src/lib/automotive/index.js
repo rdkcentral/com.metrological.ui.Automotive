@@ -198,18 +198,14 @@ const setup = (target, app) => {
     application = app;
 
     ['touchstart', 'touchmove', 'touchend'].forEach((name) => {
-        try {
-            target.addEventListener(name, (event) => {
-                if (handlers[name]) {
-                    if (config.get('externalTouchScreen') && event.sourceCapabilities) {
-                        return;
-                    }
-                    handlers[name](event);
+        target.addEventListener(name, (event) => {
+            if (handlers[name]) {
+                if (config.get('externalTouchScreen') && event.sourceCapabilities) {
+                    return;
                 }
-            });
-        } catch (e) {
-            console.error(`Error while add correct listeners to: ${target}`);
-        }
+                handlers[name](event);
+            }
+        });
     });
 };
 
@@ -223,11 +219,7 @@ export const dispatch = (event, recording) => {
     const touched = getAllTouchedElements(recording.fingers);
     if (touched.length) {
         touched.forEach((element) => {
-            try {
-                element[event](recording);
-            } catch (e) {
-                // silent
-            }
+            element[event](recording);
         });
         lastTouchedElements = touched;
     }
@@ -251,11 +243,7 @@ export const sticky = (event, recording) => {
     }
     if (stickyElements.length) {
         stickyElements.forEach((element) => {
-            try {
-                handled = element[event](recording);
-            } catch (e) {
-                // silent
-            }
+            handled = element[event](recording);
         });
     }
 
