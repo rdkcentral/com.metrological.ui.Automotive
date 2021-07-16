@@ -41,7 +41,7 @@ export default class ButtonDemo extends Lightning.Component{
 
 
     _onDoubleTap(){
-        console.log("??")
+
     }
 
 

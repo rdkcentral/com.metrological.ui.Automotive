@@ -86,7 +86,7 @@ export default class DistanceDemo extends Lightning.Component{
 
 
     _onDoubleTap(){
-        console.log("??")
+
     }
 
 

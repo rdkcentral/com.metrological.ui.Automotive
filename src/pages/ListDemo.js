@@ -1,5 +1,6 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {List} from "../lib/automotive/components";
+import {List1} from "../lib/automotive/components";
+import {List2} from "../lib/automotive/components";
 
 export default class ListDemo extends Lightning.Component{
     static _template(){
@@ -13,10 +14,10 @@ export default class ListDemo extends Lightning.Component{
                 }
             },
             List1:{
-                type: List
+                type: List1
             },
             List2:{
-                y: 400, type: List
+                y: 400, type: List2
             }
         }
     }

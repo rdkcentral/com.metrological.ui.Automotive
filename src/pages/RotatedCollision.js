@@ -74,8 +74,8 @@ export default class RotatedCollision extends Lightning.Component {
         });
 
         this.locators.add(l);
-        l.setSmooth('scale', 1.1, {duration: 0.3});
-        l.setSmooth('alpha', 0, {duration: 0.3});
+        l.setSmooth('scale', 1.1, {duration: 2.3});
+        l.setSmooth('alpha', 0, {duration: 2.3});
         l.transition('scale').on('finish', () => {
             this.locators.remove(l);
         });
