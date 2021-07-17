@@ -1,7 +1,7 @@
 import {Registry, Log} from "@lightningjs/sdk";
 import {createRecording} from "./models";
 import {analyzeEnded, resetRecordings} from "./analyzer";
-import {getTouchedElements, getAllTouchedElements} from "./helpers";
+import {getAllTouchedElements, isFunction} from "./helpers";
 
 let application = null;
 export let config = new Map();
@@ -219,7 +219,9 @@ export const dispatch = (event, recording) => {
     const touched = getAllTouchedElements(recording.fingers);
     if (touched.length) {
         touched.forEach((element) => {
-            element[event](recording);
+            if(isFunction(element[event])){
+                element[event](recording);
+            }
         });
         lastTouchedElements = touched;
     }
@@ -243,10 +245,11 @@ export const sticky = (event, recording) => {
     }
     if (stickyElements.length) {
         stickyElements.forEach((element) => {
-            handled = element[event](recording);
+            if(isFunction(element[event])){
+                handled = element[event](recording);
+            }
         });
     }
-
     return handled;
 };
 
