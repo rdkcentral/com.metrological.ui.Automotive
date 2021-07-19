@@ -17,22 +17,17 @@ export default class List extends Lightning.Component {
     _init() {
         this.itemWidth = 500;
         this.tag("Items").children = new Array(50).fill('').map((el, index) => {
-            let x = index * (this.itemWidth / 2);
-            const center = 1920 / 2 - (this.itemWidth / 2);
-            const dis = Math.abs(x - center) / center;
-            const aDis = Math.abs(x - center);
-            let z = 40 - dis * 10;
-            let s = 1 - smoothstep(0, center, aDis);
             return {
                 type: Item,
-                zIndex: z < 1 ? 1 : z,
-                x, w: 500, h: 600,
-                scale: s,
-                startX: x,
-                alpha: smoothstep(0.1, 0.7, s),
+                w: 500, h: 600,
+                x: index * (this.itemWidth / 2),
                 image: `https://picsum.photos/id/${index + 30}/500/600`
             };
         });
+
+        this.items.forEach(
+            (item) => this.update(item)
+        );
     }
 
     _active() {
