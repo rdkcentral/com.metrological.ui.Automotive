@@ -85,9 +85,7 @@ export default class Button extends Lightning.Component {
         this.y = startY + y;
     }
 
-    _onDragStart() {
-
-    }
+    _onDragStart() {}
 
     _onDragEnd() {
         this.patch({

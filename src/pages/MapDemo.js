@@ -29,7 +29,6 @@ export default class MapDemo  extends Lightning.Component{
     }
 
     _active(){
-
         Events.listen('App', 'pinch', ({distance, angle}) => {
             const level = (distance / 1920) * 6 + 1;
             this.tag("Image").scale = level > 0 ? level : 0.001;

@@ -13,6 +13,7 @@ export default class App extends Router.App {
 
     _setup() {
         initAutomotive(this.application, getConfigMap());
+
         Router.startRouter(routes, this);
         this.initListeners();
     }

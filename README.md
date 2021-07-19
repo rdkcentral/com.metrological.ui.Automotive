@@ -108,11 +108,28 @@ Events.listen('App', 'swipeRight', (recording) => { ... });
 Events.listen('App', 'swipeUp', (recording) => { ... });
 ```
 
-#### swipeDown
+##### swipeDown
 
 ```js
 Events.listen('App', 'swipeUp', (recording) => { ... });
+
 ```
+
+##### pinch
+
+```js
+Events.listen('App', 'pinch', ({distance, angle}) => { });
+
+```
+
+##### pinchEnd
+
+```js
+Events.listen('App', 'pinchEnd', (recording) => { ... });
+
+```
+
+
 
 It's also possible to block the global event by adding the eventname
 as a class member to a component as adding `"componentBlockBroadcast": true` to 

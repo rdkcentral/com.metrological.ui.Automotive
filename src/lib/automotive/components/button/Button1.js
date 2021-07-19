@@ -13,7 +13,7 @@ export default class Button extends Lightning.Component {
         };
     }
 
-    _active() {
+    _active(recording) {
         this.restore = {
             x: this.x, y: this.y
         };
@@ -24,7 +24,7 @@ export default class Button extends Lightning.Component {
      * Will be called when one finger quickly touches this element
      * @private
      */
-    _onSingleTap() {
+    _onSingleTap(recording) {
         this.alpha = 1;
     }
 

@@ -28,6 +28,7 @@ export default class List extends Lightning.Component {
 
     _onDrag(recording) {
         const {delta} = recording;
+
         this.items.forEach((item) => {
             item.x = item.startX + delta.x;
         });

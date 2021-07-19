@@ -39,6 +39,7 @@ export default (event) => {
         if (!isHold) {
             isHold = true;
             Registry.setInterval(() => {
+                endtime = Date.now();
                 sticky('_onDrag', record);
             }, 1);
         }
@@ -69,6 +70,7 @@ export default (event) => {
             moved = true;
             Registry.clearTimeouts();
             Registry.setInterval(() => {
+                endtime = Date.now();
                 sticky('_onDrag', record);
             }, 1.5);
         }
