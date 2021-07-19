@@ -15,6 +15,11 @@ export default class Item extends Lightning.Component {
 
     _init() {
         this.scaled = false;
+        this.on("txError",()=>{
+            this.patch({
+                rect: true, alpha:1, color: 0xff000000
+            })
+        })
     }
 
     _onSingleTap() {
@@ -62,6 +67,7 @@ export default class Item extends Lightning.Component {
     }
 
     set image(v) {
+        this._image = v;
         this.texture = Img(v).original();
     }
 }

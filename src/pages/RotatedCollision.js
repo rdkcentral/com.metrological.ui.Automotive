@@ -27,7 +27,14 @@ export default class RotatedCollision extends Lightning.Component {
                     type: Button3, x: 200, y: 880, w: 100, h: 100
                 }
             },
-            Locators: {}
+            Locators: {
+                w: 1920, h: 1080,
+                type: Lightning.components.FastBlurComponent, amount: 2, content: {
+                    Indicators:{
+
+                    }
+                }
+            }
         };
     }
 
@@ -69,13 +76,14 @@ export default class RotatedCollision extends Lightning.Component {
 
     addPoint(v) {
         const {x, y} = v;
+
         const l = this.stage.c({
             type: PositionPoint, x: x - 15, y: y - 15, color: this.sc
         });
 
         this.locators.add(l);
-        l.setSmooth('scale', 1.1, {duration: 2.3});
-        l.setSmooth('alpha', 0, {duration: 2.3});
+        l.setSmooth('scale', 3, {duration: 1.4});
+        l.setSmooth('alpha', 0, {duration: 1.4});
         l.transition('scale').on('finish', () => {
             this.locators.remove(l);
         });
@@ -156,7 +164,7 @@ export default class RotatedCollision extends Lightning.Component {
     }
 
     get locators() {
-        return this.tag('Locators').childList;
+        return this.tag('Locators').content.tag("Indicators").childList;
     }
 
     get shape1(){
