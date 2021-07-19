@@ -1,6 +1,6 @@
 import {Lightning} from "@lightningjs/sdk";
 import {createVector} from "../../models";
-import {Item} from "../index";
+import {Item1} from "../index";
 import {findStraightLine} from "../../analyzer";
 import {smoothstep} from "../../helpers";
 
@@ -16,12 +16,16 @@ export default class List extends Lightning.Component {
 
     _init() {
         this.itemWidth = 500;
-        this.tag("Items").children = new Array(50).fill('').map((el, index) => {
+        this.tag("Items").children = new Array(300).fill('').map((el, index) => {
+            const x = index * (this.itemWidth / 2);
             return {
-                type: Item,
+                type: Item1,
                 w: 500, h: 600,
-                x: index * (this.itemWidth / 2),
-                image: `https://picsum.photos/id/${index + 30}/500/600`
+                x, startX: x,
+                image: `https://picsum.photos/id/${index + 30}/500/600`,
+                shader: {
+                    type: Lightning.shaders.Perspective, rx: 0, fudge: .2
+                }
             };
         });
 
@@ -83,11 +87,16 @@ export default class List extends Lightning.Component {
         }
 
         const center = 1920 / 2 - (this.itemWidth / 2);
-        const aDis = Math.abs(x - center);
-        const dis = aDis / center;
-        const zIndex = 40 - dis * 10;
-        const scale = 1 - smoothstep(0, center, aDis);
+        const absDis = Math.abs(x - center);
+        const offset = absDis / center;
+        const zIndex = 40 - offset * 10;
+        const scale = 1 - smoothstep(0, center, absDis);
         const alpha = smoothstep(0.1, 0.7, scale);
+
+        if(absDis < 960){
+           const diff = (x - center) / 500;
+           item.shader.rx = diff;
+        }
 
         item.patch({
             zIndex, scale, alpha
