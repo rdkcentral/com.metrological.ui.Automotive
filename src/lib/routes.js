@@ -1,5 +1,5 @@
 import {
-    Main, ButtonDemo, ListDemo, MapDemo, RotatedCollision, DistanceDemo
+    Main, ButtonDemo, ListDemo, CarouselDemo, MapDemo, RotatedCollision, DistanceDemo
 } from '@/pages';
 
 
@@ -30,6 +30,9 @@ export default {
         }, {
             path: 'listdemo',
             component: ListDemo,
+        },{
+            path: 'listdemo2',
+            component: CarouselDemo,
         }, {
             path: 'mapdemo',
             component: MapDemo,

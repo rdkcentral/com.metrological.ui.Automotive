@@ -20,7 +20,7 @@ export default class App extends Router.App {
     static _template() {
         return {
             Background: {
-                rect: true, color: 0xff000000, w: 1920, h: 1080,
+              rtct: true, color: 0xff000000, w: 1920, h: 1080,
                 Label: {
                     color: 0xffffffff, mount: 0.5,
                     x: 960, y: 540,

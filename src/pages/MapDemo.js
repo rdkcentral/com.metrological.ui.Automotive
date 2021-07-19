@@ -24,14 +24,13 @@ export default class MapDemo  extends Lightning.Component{
                 text:{fontSize:18,
                     text:'', fontFace:'julius'
                 }
-            },
+            }
         }
     }
 
     _active(){
 
         Events.listen('App', 'pinch', ({distance, angle}) => {
-            // @todo: screen width
             const level = (distance / 1920) * 6 + 1;
             this.tag("Image").scale = level > 0 ? level : 0.001;
             
@@ -66,7 +65,7 @@ export default class MapDemo  extends Lightning.Component{
 
     swipeUp(recording){
         if(recording.fingersTouched === 4){
-            Router.navigate("listdemo")
+            Router.navigate("listdemo2")
         }
     }
 

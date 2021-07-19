@@ -1,24 +1,24 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {List1} from "../lib/automotive/components";
 import {List2} from "../lib/automotive/components";
 
-export default class ListDemo extends Lightning.Component{
+export default class CarouselDemo extends Lightning.Component{
     static _template(){
         return {
             rect:true, w: 1920, h: 1080,
-            colorLeft: 0xff4568dc, colorRight: 0xffb06ab3,
+            colorTop: 0xffCF9FF2, colorBottom: 0xff001935,
             ListTitle:{
                 x: 30, y: 20,
                 text:{
-                    text:'Automotive list demo', fontFace:'julius'
+                    text:'Automotive list demo 2', fontFace:'julius'
                 }
             },
-            List1:{
-                type: List1
+            Carousel:{
+                type: List2, y: 150
             },
-            List2:{
-                y: 400, type: List1
+            L:{
+                rect:true, w:3, h: 1080, x: 960
             }
+
         }
     }
 
@@ -27,7 +27,7 @@ export default class ListDemo extends Lightning.Component{
     }
 
     swipeLeft(){
-        Router.navigate("listdemo2")
+        Router.navigate("mapdemo")
     }
 
     swipeUp(){
