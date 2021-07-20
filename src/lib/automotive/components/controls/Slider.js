@@ -18,9 +18,11 @@ export default class Button extends Lightning.Component {
                 rect: true, w: 400, h: 4, y: 6,
                 Drag: {
                     rect: true, w: 12, y: -17, h: 40, x: 40,
-                    shader: {
-                        type: Lightning.shaders.RoundedRectangle,
-                        radius: 5
+                    Visual:{
+                        shader: {
+                            type: Lightning.shaders.RoundedRectangle,
+                            radius: 5
+                        },
                     },
                     LabelCurrent: {
                         y: -30, mountX: 0.5, x:5,
@@ -107,7 +109,10 @@ export default class Button extends Lightning.Component {
 
     set value(v) {
         this._value = v;
-        this.tag("LabelCurrent").text = `${v}`
+        if(parseInt(v) === v){
+            this.tag("LabelCurrent").text = `${Math.ceil(v)}`
+        }
+
     }
 
     get value() {

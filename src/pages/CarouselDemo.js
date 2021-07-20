@@ -13,7 +13,7 @@ export default class CarouselDemo extends Lightning.Component {
                 }
             },
             Carousel: {
-                type: List2, y: 216, w: 1920, h:700
+                type: List2, y: 216, w: 1920, h:600
             },
             L: {
                 rect: true, w: 3, h: 1080, x: 960, alpha: 0.3
@@ -30,7 +30,7 @@ export default class CarouselDemo extends Lightning.Component {
 
     swipeLeft(recording) {
         if (recording.fingersTouched === 2) {
-            Router.navigate("mapdemo");
+            Router.navigate("controlsdemo");
         }
 
     }
