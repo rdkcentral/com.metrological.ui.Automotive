@@ -1,4 +1,5 @@
 import {Lightning} from "@lightningjs/sdk";
+import {isFunction} from "../../helpers";
 
 const style = Symbol("style");
 
@@ -116,6 +117,9 @@ export default class Button extends Lightning.Component {
             this.tag("LabelCurrent").text = `${Math.ceil(v)}`
         }
 
+        if(isFunction(this[style].onChange)){
+            this[style].onChange(v)
+        }
     }
 
     get value() {
