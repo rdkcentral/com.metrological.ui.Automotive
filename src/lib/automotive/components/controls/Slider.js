@@ -50,7 +50,7 @@ export default class Button extends Lightning.Component {
         const start = startValue - min;
 
         // calculate amount of steps we can take
-        data.maxSteps = ~~(max / steps);
+        data.maxSteps = max / steps;
 
         // amount of pixels per step
         data.sizeSteps = width / data.maxSteps;
@@ -89,13 +89,17 @@ export default class Button extends Lightning.Component {
 
     _onDrag(recording) {
         const {delta: {x}} = recording;
-        const {sizeSteps, width, currentPosition, steps} = this[style];
-        const position = currentPosition + (x - x % sizeSteps);
+        const {sizeSteps, min, width, currentPosition, steps} = this[style];
+        let position = Math.max(
+            min, Math.min(width, currentPosition + (x - x % sizeSteps))
+        );
+
+        let value = position / sizeSteps * steps;
 
         // keep in bounds
         if(position >= 0 && position <= width){
             this.drag.x = position;
-            this.value = position / sizeSteps * steps
+            this.value = value;
         }
     }
 
