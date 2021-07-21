@@ -1,5 +1,6 @@
 import {Lightning, Utils} from "@lightningjs/sdk";
 import {createVector} from "../../models";
+const config = Symbol("config");
 
 export default class RotatingButton extends Lightning.Component {
     static _template() {
@@ -23,56 +24,44 @@ export default class RotatingButton extends Lightning.Component {
         return this.tag("Button")
     }
 
+    get config(){
+        return this[config];
+    }
 
-    _onDragStart(recording){
+    set config(data) {
+        // store config object in a special unique symbol
+        // on the component instance
+        this[config] = data;
+    }
+
+    _onDragStart(){
         if(this.started){
             return
         }
 
-        let {firstFinger:{position:{x:fx,y:fy}}} = recording;
         let {px, py} = this.button.core._worldContext;
 
-        fx = ~~(fx);
-        fy = ~~(fy);
-
-        px = ~~(px);
-        py = ~~(py);
+        this.center = createVector(
+            ~~(px) + (this.w / 2),
+            ~~(py) + (this.h / 2)
+        );
 
         this.a = 0;
         this.r = 0
 
-        this.center = createVector(
-            px + (this.w / 2),
-            py + (this.h / 2)
-        );
-
-        const x = fx - this.center.x;
-        const y = fy - this.center.y;
-
-        this.startAngle = Math.atan2(y, x);
-        this.button.rotation = this.startAngle;
+        this.startAngle = 0;
+        this.button.rotation = 0;
 
         this.started = true;
     }
 
     _onDrag(recording) {
-        let {firstFinger:{position:{x:fx,y:fy}}} = recording;
+        let {firstFinger:{position:{x,y}}} = recording;
 
-        fx = ~~(fx);
-        fy = ~~(fy);
-
-        // assuming the position of the button is not changing
-        const x = fx - this.center.x;
-        const y = fy - this.center.y;
-        const r = Math.atan2(y, x);
-
-        this.r = r - this.startAngle;
-        this.button.rotation = this.a + this.r;
-    }
-
-
-    _onDragEnd(){
-        this.a += this.r;
+        // apply rotation
+        this.button.rotation = Math.atan2(
+            ~~(y) - this.center.y, ~~(x) - this.center.x
+        );;
     }
 
     swipeLeft(){
