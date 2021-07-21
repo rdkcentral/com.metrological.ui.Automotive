@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {Slider, RotatingButton} from "../lib/automotive/components";
+import {Slider, RotatingButton, VolumeButton} from "../lib/automotive/components";
 
 export default class ControlsDemo  extends Lightning.Component{
     static _template(context){
@@ -96,28 +96,23 @@ export default class ControlsDemo  extends Lightning.Component{
             Button:{
                 type: RotatingButton, y: 600, x: 400,
                 config:{
-                    min:0, max:Math.PI * 2, width:200,
-                    startValue: 0, steps: 0.1,
                     onChange(value){
-                        context.tag("Obj").rotation = value;
+
                     }
                 }
             },
             Button2:{
-                type: RotatingButton, y: 600, x: 800,
+                type: VolumeButton, y: 600, x: 800,
                 config:{
-                    min:0, max:Math.PI * 2, width:200,
-                    startValue: 0, steps: 0.1,
-                    onChange(value){
-                        context.tag("Obj").rotation = value;
+                    dmin: 90, dmax: 360, vmin: 0, vmax: 100,
+                    onChange(value, nv){
+
                     }
                 }
             },
             Button3:{
                 type: RotatingButton, y: 600, x: 1200,
                 config:{
-                    min:0, max:Math.PI * 2, width:200,
-                    startValue: 0, steps: 0.1,
                     onChange(value){
                         context.tag("Obj").rotation = value;
                     }
