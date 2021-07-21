@@ -1,4 +1,4 @@
-import {Lightning} from "@lightningjs/sdk";
+import {Lightning, Utils} from "@lightningjs/sdk";
 import {isFunction} from "../../helpers";
 
 const style = Symbol("style");
@@ -6,40 +6,47 @@ const style = Symbol("style");
 export default class Button extends Lightning.Component {
     static _template() {
         return {
-            Start: {
-                rect: true, w: 5, h: 15,
-                LabelStart: {
-                    y: 40, mountX: 0.5,
-                    text: {
-                        text: '0', fontFace: 'julius', fontSize: 15
-                    }
+            LabelStart: {
+                y: 4, mountX: 1,
+                color: 0xff8b8b8b,
+                text: {
+                    text: '0', fontFace: 'julius', fontSize: 15
                 }
             },
             Slider: {
-                rect: true, w: 400, h: 4, y: 6,
-                Drag: {
-                    rect: true, w: 12, y: -17, h: 40, x: 40,
-                    Visual:{
+                x: 20,
+                Bar: {
+                    Rounded:{
+                        w: 400, h: 15, y: 6, rect: true, color: 0x50d8d8d8,
                         shader: {
                             type: Lightning.shaders.RoundedRectangle,
-                            radius: 5
-                        },
+                            radius: 7
+                        }
+                    }
+                },
+                Drag: {
+                    Shadow: {
+                        src: Utils.asset('images/slider-drag-shadow.png'),
+                        x: -30, y: -18, scale: 1.1
+                    },
+                    Visual: {
+                        src: Utils.asset('images/slider-drag.png'),
+                        x: -20, w: 40, h: 40, y: -6
                     },
                     LabelCurrent: {
-                        y: -30, mountX: 0.5, x:5,
+                        y: -35, mountX: 0.5, x: 0,
+                        color: 0xff8b8b8b,
                         text: {
                             text: '', fontFace: 'julius', fontSize: 15
                         }
                     }
                 }
             },
-            End: {
-                rect: true, w: 5, h: 15, x: 400,
-                LabelEnd: {
-                    y: 40, mountX: 0.5,
-                    text: {
-                        text: '200', fontFace: 'julius', fontSize: 15
-                    }
+            LabelEnd: {
+                y: 5, mountX: 0,
+                color: 0xff8b8b8b,
+                text: {
+                    text: '200', fontFace: 'julius', fontSize: 15
                 }
             }
         };
@@ -47,7 +54,7 @@ export default class Button extends Lightning.Component {
 
     set config(data) {
         // grab template configuration
-        const {min, max, width, startValue, steps} = data;
+        const {min, max, width, startValue, steps, vertical} = data;
         const start = startValue - min;
 
         // calculate amount of steps we can take
@@ -64,47 +71,33 @@ export default class Button extends Lightning.Component {
         // on the component instance
         this[style] = data;
 
-        this.patch({
-            w: width, h: 150,
-            Start: {
-                LabelStart: {
-                    text: `${min}`
-                }
-            },
-            Slider: {
-                w: width,
-                Drag: {
-                    x: data.currentPosition
-                }
-            },
-            End: {
-                x: width,
-                LabelEnd: {
-                    text: `${max}`
-                }
-            }
-        });
+        // update according to position
+        this[!vertical ? "upv" : "uph"](data);
 
+        // set startvalue
         this.value = startValue;
     }
 
+
     _onDrag(recording) {
-        const {delta: {x}} = recording;
-        const {sizeSteps, min, width, currentPosition, steps} = this[style];
+        const {delta: {x, y}} = recording;
+        const {sizeSteps, min, width, vertical, currentPosition, steps} = this[style];
+        const v = vertical ? y : x;
         let position = Math.max(
-            0, Math.min(width, currentPosition + (x - x % sizeSteps))
+            0, Math.min(width, currentPosition + (v - v % sizeSteps))
         );
         let value = (position / sizeSteps * steps) + min;
 
         // keep in bounds
-        if(position >= 0 && position <= width){
-            this.drag.x = position;
+        if (position >= 0 && position <= width) {
+            this.drag[vertical ? 'y' : 'x'] = position;
             this.value = value;
         }
     }
 
-    _onDragEnd(){
-        this[style].currentPosition = this.drag.x;
+    _onDragEnd() {
+        const {vertical} = this[style];
+        this[style].currentPosition = this.drag[vertical ? 'y' : 'x'];
     }
 
     get drag() {
@@ -113,12 +106,12 @@ export default class Button extends Lightning.Component {
 
     set value(v) {
         this._value = v;
-        if(parseInt(v) === v){
-            this.tag("LabelCurrent").text = `${Math.ceil(v)}`
+        if (parseInt(v) === v) {
+            this.tag("LabelCurrent").text = `${Math.ceil(v)}`;
         }
 
-        if(isFunction(this[style].onChange)){
-            this[style].onChange(v)
+        if (isFunction(this[style].onChange)) {
+            this[style].onChange(v);
         }
     }
 
@@ -140,6 +133,56 @@ export default class Button extends Lightning.Component {
 
     swipeDown() {
         // block
+    }
+
+    upv({min, max, width, currentPosition}) {
+        this.patch({
+            w: width, h: 80,
+            LabelStart: {
+                text: `${min}`
+            },
+            Slider: {
+                Bar: {
+                    Rounded:{
+                        w: width
+                    }
+                },
+                Drag: {
+                    x: currentPosition
+                }
+            },
+            LabelEnd: {
+                x: width + 40,
+                text: `${max}`
+            }
+        });
+    }
+
+    uph({min, max, width, currentPosition}) {
+        this.patch({
+            w: 80, h: width,
+            LabelStart: {
+                y: -40, mountX: 0.5, x: 28,
+                text: `${min}`
+            },
+            Slider: {
+                Bar: {
+                    Rounded:{
+                        h: width, w: 15
+                    }
+                },
+                Drag: {
+                    y: currentPosition, x: 8,
+                    LabelCurrent: {
+                        y: 0, mountX: 0, x: 30
+                    }
+                }
+            },
+            LabelEnd: {
+                y: width + 40, mountX: 0.5, x: 28,
+                text: `${max}`
+            }
+        });
     }
 
 }
