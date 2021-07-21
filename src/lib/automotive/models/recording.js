@@ -22,8 +22,8 @@ export default (event) => {
      */
     let moved = false;
 
+    let dragStarted  = false;
     let isPinched = false;
-
     let pinchStartDistance = 0;
 
     // register every finger
@@ -40,6 +40,10 @@ export default (event) => {
             isHold = true;
             Registry.setInterval(() => {
                 endtime = Date.now();
+                if(!dragStarted){
+                    sticky('_onDragStart', record);
+                    dragStarted = true
+                }
                 sticky('_onDrag', record);
             }, 1);
         }
@@ -71,6 +75,10 @@ export default (event) => {
             Registry.clearTimeouts();
             Registry.setInterval(() => {
                 endtime = Date.now();
+                if(!dragStarted){
+                    sticky('_onDragStart', record);
+                    dragStarted = true
+                }
                 sticky('_onDrag', record);
             }, 1.5);
         }
