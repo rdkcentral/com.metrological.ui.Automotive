@@ -15,21 +15,6 @@
       "lazyCreate": true,
       "lazyDestroy:": false
     },
-    "automotive": {
-      "bridgeCloseTimeout": 110,
-      "tapDelay": 80,
-      "doubleTapActive": true,
-      "beforeDoubleTapDelay": 180,
-      "flagAsHoldDelay": 800,
-      "doubleTapMaxDistance": 40,
-      "externalTouchScreen": false,
-      "componentBlockBroadcast": true,
-      "swipeXTreshold": 150,
-      "swipeYTreshold": 150,
-      "viewportOffsetX": 0,
-      "viewportOffsetY": 57
-
-    },
     "imageServerUrl": "//cdn.metrological.com/image"
   }
 }

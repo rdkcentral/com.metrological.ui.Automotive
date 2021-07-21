@@ -1,30 +1,46 @@
-import {Lightning, Router, Events} from "@lightningjs/sdk";
+import {Lightning} from "@lightningjs/sdk";
 
 export default class Button extends Lightning.Component {
     static _template() {
         return {
-            rect: true, alpha: 0.5, collision: true,
-
+            rect: true, alpha: 0.2, collision: true,
+            Label:{
+                mount:0.5, x: 150, y: 150,
+                text:{ fontSize:24,
+                    text:'', fontFace:'julius'
+                }
+            }
         };
     }
 
-    _active() {
+    _active(recording) {
         this.restore = {
             x: this.x, y: this.y
         };
         this._dragStarted = false;
     }
 
+    /**
+     * Will be called when one finger quickly touches this element
+     * @private
+     */
+    _onSingleTap(recording) {
+        this.alpha = 1;
+    }
 
-    _onSingleTap() {
+    /**
+     *
+     * @param recording - recording data
+     * @private
+     */
+    _onMultiTap(recording) {
+        this.tag("Label").text = `${recording.fingersTouched} fingers`
         this.animation({
-            duration: 0.4, actions: [
-                {p: 'alpha', v: {0: 0.5, 0.2: 1, 1: 0.5}},
-                {p: 'scale', v: {0: 1, 0.2: 2.5, 1: 1}},
+            duration: 2, actions: [
+                {p: 'alpha', v: {0: 1, 9: 1, 1: 0.5}}
             ]
         }).start();
     }
-
 
     /**
      * When one finger quickly double taps the same element
@@ -34,7 +50,7 @@ export default class Button extends Lightning.Component {
         this.animation({
             duration: 0.4, actions: [
                 {p: 'alpha', v: {0: 0.5, 0.2: 1, 1: 0.5}},
-                {p: 'scale', v: {0: 1, 0.2: 2.5, 1: 1}},
+                {p: 'scale', v: {0: 1, 0.2: 1.5, 1: 1}},
             ]
         }).start();
     }
@@ -86,7 +102,6 @@ export default class Button extends Lightning.Component {
             });
             this._dragStarted = false;
         }, 800)
-
         this.color = 0xffffffff;
         this.alpha = 0.2;
     }

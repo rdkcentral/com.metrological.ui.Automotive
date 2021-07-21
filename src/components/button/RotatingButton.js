@@ -1,5 +1,5 @@
 import {Lightning, Utils} from "@lightningjs/sdk";
-import {createVector} from "../../models";
+import {createVector} from "@lightningjs/automotive/src/models";
 const config = Symbol("config");
 
 export default class RotatingButton extends Lightning.Component {

@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {Slider, RotatingButton, VolumeButton} from "../lib/automotive/components";
+import {Slider, RotatingButton, VolumeButton} from "../components";
 
 export default class ControlsDemo  extends Lightning.Component{
     static _template(context){

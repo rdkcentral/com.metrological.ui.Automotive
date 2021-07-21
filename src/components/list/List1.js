@@ -1,6 +1,6 @@
 import {Lightning} from "@lightningjs/sdk";
 import {Item} from "../index";
-import {findStraightLine} from "../../analyzer";
+import {findStraightLine} from "@lightningjs/automotive/src/analyzer";
 
 export default class List extends Lightning.Component {
     static _template() {

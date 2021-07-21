@@ -1,8 +1,8 @@
 import {Router, Utils, Events} from "@lightningjs/sdk";
-import {initAutomotive} from "./lib/automotive";
+import {initAutomotive} from "@lightningjs/automotive";
 import routes from "./lib/routes";
-
-import {getConfigMap} from "./lib/automotive/helpers";
+import {getConfigMap} from "@lightningjs/automotive/src/helpers";
+import {settings} from "./lib/automotiveSettings";
 
 export default class App extends Router.App {
     static getFonts() {
@@ -12,7 +12,8 @@ export default class App extends Router.App {
     }
 
     _setup() {
-        initAutomotive(this.application, getConfigMap());
+        // initialize automotive engine
+        initAutomotive(this.application, getConfigMap(settings));
 
         Router.startRouter(routes, this);
         this.initListeners();
@@ -21,12 +22,13 @@ export default class App extends Router.App {
     static _template() {
         return {
             Background: {
-              rect: true, color: 0xff000000, w: 1920, h: 1080,
+                rect: true, color: 0xff000000, w: 1920, h: 1080,
                 Label: {
                     color: 0xffffffff, mount: 0.5,
                     x: 960, y: 540,
-                    text: { fontFace: 'julius',
-                        text: '' , fontSize:80
+                    text: {
+                        fontFace: 'julius',
+                        text: '', fontSize: 80
                     }
                 }
             },

@@ -1,7 +1,7 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {Button3} from "../lib/automotive/components";
-import createVector from "../lib/automotive/models/vector";
-import {rotatePoint, collide} from "../lib/automotive/helpers";
+import {Button3} from "../components";
+import {createVector} from "@lightningjs/automotive/src/models";
+import {rotatePoint, collide} from "@lightningjs/automotive/src/helpers";
 
 export default class RotatedCollision extends Lightning.Component {
     static _template() {

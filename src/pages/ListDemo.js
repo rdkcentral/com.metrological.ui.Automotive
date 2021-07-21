@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {List1} from "../lib/automotive/components";
+import {List1} from "../components";
 
 export default class ListDemo extends Lightning.Component{
     static _template(){

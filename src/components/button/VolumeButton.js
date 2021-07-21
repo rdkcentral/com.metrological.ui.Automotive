@@ -1,6 +1,6 @@
-import {Lightning, Utils} from "@lightningjs/sdk";
+import {Utils} from "@lightningjs/sdk";
 import {RotatingButton} from "../index";
-import {isFunction} from "../../helpers";
+import {isFunction} from "@lightningjs/automotive/src/helpers";
 
 // define unique style symbol
 const style = Symbol("style");

@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {List2} from "../lib/automotive/components";
+import {List2} from "../components";
 
 export default class CarouselDemo extends Lightning.Component {
     static _template() {

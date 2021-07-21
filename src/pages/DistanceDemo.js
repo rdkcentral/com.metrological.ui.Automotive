@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {distance, smoothstep} from "../lib/automotive/helpers";
+import {distance, smoothstep} from "@lightningjs/automotive/src/helpers";
 
 
 export default class DistanceDemo extends Lightning.Component{

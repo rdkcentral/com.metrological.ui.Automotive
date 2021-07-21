@@ -1,8 +1,8 @@
 import {Lightning} from "@lightningjs/sdk";
-import {createVector} from "../../models";
+import {createVector} from "@lightningjs/automotive/src/models";
 import {Item1} from "../index";
-import {findStraightLine} from "../../analyzer";
-import {smoothstep} from "../../helpers";
+import {findStraightLine} from "@lightningjs/automotive/src/analyzer";
+import {smoothstep} from "@lightningjs/automotive/src/helpers";
 
 export default class List extends Lightning.Component {
     static _template() {
