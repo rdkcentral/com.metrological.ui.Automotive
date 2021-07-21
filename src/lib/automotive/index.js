@@ -1,7 +1,7 @@
 import {Registry, Log} from "@lightningjs/sdk";
 import {createRecording} from "./models";
 import {analyzeEnded, resetRecordings} from "./analyzer";
-import {getAllTouchedElements, isFunction} from "./helpers";
+import {getAllTouchedElements, isFunction, isArray, isString} from "./helpers";
 
 let application = null;
 export let config = new Map();
@@ -67,6 +67,12 @@ let stickyElements = [];
  * @type {Array}
  */
 let lastTouchedElements = [];
+
+/**
+ * Events that are currently being blocked
+ * @type {Set<string>}
+ */
+const blockedEvents = new Set();
 
 /**
  * Called when user start touching dashboard touchscreen
@@ -210,16 +216,20 @@ const setup = (target, app) => {
 };
 
 /**
- *
+ * CTry to call
  * @param event
  * @param recording
  * @param reset
  */
 export const dispatch = (event, recording) => {
+    if(blockedEvents.has(event)){
+        return;
+    }
+
     const touched = getAllTouchedElements(recording.fingers);
     if (touched.length) {
         touched.forEach((element) => {
-            if(isFunction(element[event])){
+            if (isFunction(element[event])) {
                 element[event](recording);
             }
         });
@@ -235,6 +245,12 @@ export const dispatch = (event, recording) => {
  * @param recording
  */
 export const sticky = (event, recording) => {
+    // return true so we prevent unhandled sticky events
+    // from being broadcasted to the app globally
+    if(blockedEvents.has(event)){
+        return true;
+    }
+
     let handled = false;
     // on first fire after a new recording has started
     // we collect the elements;
@@ -245,7 +261,7 @@ export const sticky = (event, recording) => {
     }
     if (stickyElements.length) {
         stickyElements.forEach((element) => {
-            if(isFunction(element[event])){
+            if (isFunction(element[event])) {
                 handled = element[event](recording);
             }
         });
@@ -270,5 +286,46 @@ export const activeTouchedElements = () => {
 export const getLastTouchedElements = () => {
     return lastTouchedElements;
 };
+
+/**
+ * Block events from being emitted
+ * from broadcast
+ * @param events
+ */
+export const block = (events = []) => {
+    if (!isArray(events)) {
+        events = [events];
+    }
+    events.forEach(
+        event => blockedEvents.add(event)
+    );
+}
+
+/**
+ * Allow blocked event to be emitted
+ * from broadcast
+ * @param events
+ */
+export const release = (events) => {
+    if(!isArray(events)){
+        if(isString(events)){
+            blockedEvents.delete(events);
+            return;
+        }else{
+            events = [events]
+        }
+    }
+    events.forEach(
+        event => blockedEvents.delete(event)
+    );
+};
+
+
+
+
+
+
+
+
 
 

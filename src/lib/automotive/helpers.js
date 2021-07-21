@@ -138,10 +138,10 @@ export const distance = (v1, v2) => {
     return Math.sqrt(a * a + b * b);
 };
 
-export const smoothstep = (min, max, value) =>{
-    const x = Math.max(0, Math.min(1, (value-min)/(max-min)));
-    return x*x*(3-2*x);
-}
+export const smoothstep = (min, max, value) => {
+    const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
+    return x * x * (3 - 2 * x);
+};
 
 /**
  * Point to rotated rectangle collision detection
@@ -196,10 +196,6 @@ export const rotatePoint = (cx, cy, angle, p) => {
     return p;
 };
 
-export const rand = (min, max) => {
-    return ~~(Math.random() * (max - min)) + min;
-};
-
 export const getConfigMap = () => {
     const automotiveSettings = Settings.get("platform", "automotive");
     return [
@@ -222,5 +218,16 @@ export const getConfigMap = () => {
 };
 
 export const isFunction = v => {
-    return typeof v === 'function'
-}
+    return typeof v === 'function';
+};
+
+export const isArray = v => {
+    return Array.isArray(v);
+};
+
+export const isString = v => {
+    return typeof v === 'string';
+};
+
+
+
