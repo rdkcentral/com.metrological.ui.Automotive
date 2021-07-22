@@ -1,6 +1,6 @@
 import {Lightning} from "@lightningjs/sdk";
 import {Item} from "../index";
-import {findStraightLine} from "@lightningjs/automotive/src/analyzer";
+import {findSlope} from "@lightningjs/automotive/src/analyzer";
 
 export default class List extends Lightning.Component {
     static _template() {
@@ -49,7 +49,7 @@ export default class List extends Lightning.Component {
     }
 
     swipe(recording, dir) {
-        const {duration, distance} = findStraightLine(recording.firstFinger);
+        const {duration, distance} = findSlope(recording.firstFinger, 'x');
         let force = distance / duration * 500 * dir;
         const bounds = this.items[dir === 1 ? 0 : this.items.length - 1].x + force;
         let outOfBounds = false;

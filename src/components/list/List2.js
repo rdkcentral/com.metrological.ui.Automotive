@@ -1,7 +1,7 @@
 import {Lightning} from "@lightningjs/sdk";
 import {createVector} from "@lightningjs/automotive/src/models";
 import {Item1} from "../index";
-import {findStraightLine} from "@lightningjs/automotive/src/analyzer";
+import {findSlope} from "@lightningjs/automotive/src/analyzer";
 import {smoothstep} from "@lightningjs/automotive/src/helpers";
 
 export default class List extends Lightning.Component {
@@ -62,7 +62,7 @@ export default class List extends Lightning.Component {
     }
 
     swipe(rec, dir){
-        const {duration, distance} = findStraightLine(rec.firstFinger);
+        const {duration, distance} = findSlope(rec.firstFinger);
         let force = distance / duration * 500 * dir;
 
         this.items.forEach((item) => {
