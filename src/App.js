@@ -1,4 +1,8 @@
-import {Router, Utils, Events} from "@lightningjs/sdk";
+import {Router, Utils} from "@lightningjs/sdk";
+
+// as long as Events plugin is not in master we need to
+// import the plugin via automotive lib
+import {Events} from "@lightningjs/automotive/node_modules/@lightningjs/sdk"
 import {initAutomotive} from "@lightningjs/automotive";
 import routes from "./lib/routes";
 import {getConfigMap} from "@lightningjs/automotive/src/helpers";
