@@ -5,11 +5,10 @@
 #### Documentation
 
 This Library provides examples on how to build interactivity for a multi-touch touchscreen. The library
-records and analyzes all fingers and it's movement ( there seems to be a hard limit in browser that it tacks max 10 fingers)
+records and analyzes all fingers and it's movement.
 
 Once the analyser recognizes a gesture it tries to dispatch that event on one of the active touched elements. De first argument of the function is the `record` instance that holds a lot  of data of the recording
 (startposition / duration / data for every finger etc)
-
 
 #### Types 
 
