@@ -3,9 +3,8 @@ import {Router, Utils} from "@lightningjs/sdk";
 // as long as Events plugin is not in master we need to
 // import the plugin via automotive lib
 import {Events} from "@lightningjs/automotive/node_modules/@lightningjs/sdk"
-import {initAutomotive} from "@lightningjs/automotive";
+import {Automotive} from "@lightningjs/automotive";
 import routes from "./lib/routes";
-import {getConfigMap} from "@lightningjs/automotive/src/helpers";
 import {settings} from "./lib/automotiveSettings";
 
 export default class App extends Router.App {
@@ -16,10 +15,13 @@ export default class App extends Router.App {
     }
 
     _setup() {
-        // initialize automotive engine
-        initAutomotive(this.application, getConfigMap(settings));
+        // start automotive engine
+        Automotive.start(
+            this.application, settings
+        );
 
         Router.startRouter(routes, this);
+
         this.initListeners();
     }
 

@@ -1,6 +1,6 @@
 import {Lightning, Router} from "@lightningjs/sdk";
 import {Button3} from "../components";
-import {createVector} from "@lightningjs/automotive/src/models";
+import {Automotive} from "@lightningjs/automotive";
 import {rotatePoint, collide} from "@lightningjs/automotive/src/helpers";
 
 export default class RotatedCollision extends Lightning.Component {
@@ -102,7 +102,7 @@ export default class RotatedCollision extends Lightning.Component {
 
     intersect(shape, finger){
         const ctx = shape.core._worldContext;
-        const origin = createVector(
+        const origin = Automotive.createVector(
             shape.x + shape.w / 2,
             shape.y + shape.h / 2
         );

@@ -1,8 +1,7 @@
 import {Lightning} from "@lightningjs/sdk";
-import {createVector} from "@lightningjs/automotive/src/models";
+import {Automotive} from "@lightningjs/automotive";
 import {Item1} from "../index";
 import {findSlope} from "@lightningjs/automotive/src/analyzer";
-import {smoothstep} from "@lightningjs/automotive/src/helpers";
 
 export default class List extends Lightning.Component {
     static _template() {
@@ -35,7 +34,7 @@ export default class List extends Lightning.Component {
     }
 
     _active() {
-        this._current = createVector(
+        this._current = Automotive.createVector(
             this.tag("Items").x, this.tag("Items").y
         );
     }
@@ -89,8 +88,8 @@ export default class List extends Lightning.Component {
         const absDis = Math.abs(x - center);
         const offset = absDis / center;
         const zIndex = 40 - offset * 10;
-        const scale = 1 - smoothstep(0, center, absDis / 1.5);
-        const alpha = smoothstep(0.1, 0.7, scale);
+        const scale = 1 - Automotive.smoothstep(0, center, absDis / 1.5);
+        const alpha = Automotive.smoothstep(0.1, 0.7, scale);
 
         if(absDis < 960){
            item.shader.rx = (x - center) / 500;

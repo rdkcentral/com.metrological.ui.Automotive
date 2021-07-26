@@ -45,11 +45,11 @@ export default class Main extends Lightning.Component{
         this.tag("Interaction").text = `${recording.fingersTouched} fingers longpress`
     }
 
-    swipe2Left(recording){
+    swipe2fLeft(){
         Router.navigate("buttonsdemo")
     }
 
-    swipe2Right(recording){
+    swipe2fRight(){
         Router.navigate("rotatedcollision")
     }
 

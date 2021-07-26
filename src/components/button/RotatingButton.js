@@ -1,5 +1,5 @@
 import {Lightning, Utils} from "@lightningjs/sdk";
-import {createVector} from "@lightningjs/automotive/src/models";
+import {Automotive} from "@lightningjs/automotive";
 const config = Symbol("config");
 
 export default class RotatingButton extends Lightning.Component {
@@ -41,7 +41,7 @@ export default class RotatingButton extends Lightning.Component {
 
         let {px, py} = this.button.core._worldContext;
 
-        this.center = createVector(
+        this.center = Automotive.createVector(
             ~~(px) + (this.w / 2),
             ~~(py) + (this.h / 2)
         );

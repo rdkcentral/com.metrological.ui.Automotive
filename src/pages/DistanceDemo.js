@@ -1,5 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {distance, smoothstep} from "@lightningjs/automotive/src/helpers";
+import {Automotive} from "@lightningjs/automotive";
 
 
 export default class DistanceDemo extends Lightning.Component{
@@ -45,9 +45,9 @@ export default class DistanceDemo extends Lightning.Component{
             const len = this.shapes.length;
             for(let i = 0; i < len; i++){
                 const el = this.shapes[i];
-                const dis = distance(finger.position, {x: el.x, y: el.y})
+                const dis = Automotive.distance(finger.position, {x: el.x, y: el.y})
                 if(dis < 450){
-                    el.setSmooth("scale", Math.min(1, smoothstep(0, 450, dis) + 0.2), {duration:0.7, timingFunction:'ease-out'});
+                    el.setSmooth("scale", Math.min(1, Automotive.smoothstep(0, 450, dis) + 0.2), {duration:0.7, timingFunction:'ease-out'});
                 }else{
                     el.scale = 1;
                 }
