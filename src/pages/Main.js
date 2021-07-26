@@ -19,12 +19,6 @@ export default class Main extends Lightning.Component{
                 text:{
                     text:'Tap to start', fontSize: 30, fontFace:'julius'
                 }
-            },
-            Buttons:{
-                children:[
-                    {type: Button2, mount:0.5, y: 540, x: 50 },
-                    {type: Button2, mount:0.5, y: 540, x: 1850, scaleX: -1},
-                ]
             }
         }
     }

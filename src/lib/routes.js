@@ -1,29 +1,17 @@
 import {
-    Main, ButtonDemo, ListDemo, CarouselDemo, MapDemo, RotatedCollision, DistanceDemo, ControlsDemo
+    Main, ButtonDemo, ListDemo, CarouselDemo, MapDemo, RotatedCollision, DistanceDemo, ControlsDemo, TouchIdentification
 } from '@/pages';
 
 
 export default {
-    boot: (params) => {
-        return new Promise((resolve, reject) => {
-            resolve();
-        });
-    },
-    root: async () => {
-        return {
-            path: "main"
-        };
-    },
-    beforeEachRoute: (from, to) => {
-        return Promise.resolve(true);
-    },
-    afterEachRoute: async (req) => {
-        // console.log("AFTER:", req)
-    },
+    root: 'main',
     routes: [
         {
             path: 'main',
             component: Main,
+        },{
+            path: 'touchidentification',
+            component: TouchIdentification,
         }, {
             path: 'buttonsdemo',
             component: ButtonDemo,

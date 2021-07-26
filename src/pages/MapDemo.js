@@ -33,7 +33,7 @@ export default class MapDemo  extends Lightning.Component{
         Events.listen('App', 'pinch', ({distance, angle}) => {
             const level = (distance / 1920) * 6 + 1;
             this.tag("Image").scale = level > 0 ? level : 0.001;
-            
+
             this.tag("Image").rotation = angle;
             this.tag("Scale").text = `scale: ${level + 1}`;
             this.tag("Rotation").text = `rotation: ${angle}`;
