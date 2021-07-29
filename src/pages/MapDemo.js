@@ -1,5 +1,4 @@
 import {Lightning, Router, Utils} from "@lightningjs/sdk";
-import {Events} from "@lightningjs/automotive/node_modules/@lightningjs/sdk"
 
 export default class MapDemo  extends Lightning.Component{
     static _template(){
@@ -29,29 +28,29 @@ export default class MapDemo  extends Lightning.Component{
         }
     }
 
-    _active(){
-        Events.listen('App', 'pinch', ({distance, angle}) => {
-            const level = (distance / 1920) * 6 + 1;
-            this.tag("Image").scale = level > 0 ? level : 0.001;
 
-            this.tag("Image").rotation = angle;
-            this.tag("Scale").text = `scale: ${level + 1}`;
-            this.tag("Rotation").text = `rotation: ${angle}`;
-        });
+    _onPinch(record){
+        const {distance, angle} = record.pinch;
+        const level = (distance / 1920) * 6 + 1;
+        this.tag("Image").scale = level > 0 ? level : 0.001;
 
-        Events.listen('App', 'pinchEnd', (data) => {
-            this.tag("Image").patch({
-                smooth: {
-                    scale:[1,{duration:0.8}], rotation:[0,{duration:0.8}]
-                }
-            })
-            this.tag("Scale").text = ``;
-            this.tag("Rotation").text = ``;
-        });
+        this.tag("Image").rotation = angle;
+        this.tag("Scale").text = `scale: ${level + 1}`;
+        this.tag("Rotation").text = `rotation: ${angle}`;
+    }
+
+    _onPinchEnd(){
+        this.tag("Image").patch({
+            smooth: {
+                scale:[1,{duration:0.8}], rotation:[0,{duration:0.8}]
+            }
+        })
+        this.tag("Scale").text = ``;
+        this.tag("Rotation").text = ``;
     }
 
     _inactive() {
-        Events.clear('App', 'pinch')
+
     }
 
 

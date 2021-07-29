@@ -1,8 +1,4 @@
 import {Router, Utils} from "@lightningjs/sdk";
-
-// as long as Events plugin is not in master we need to
-// import the plugin via automotive lib
-import {Events} from "@lightningjs/automotive/node_modules/@lightningjs/sdk"
 import {Automotive} from "@lightningjs/automotive";
 import routes from "./lib/routes";
 import {settings} from "./lib/automotiveSettings";
@@ -21,8 +17,6 @@ export default class App extends Router.App {
         );
 
         Router.startRouter(routes, this);
-
-        this.initListeners();
     }
 
     static _template() {
@@ -72,54 +66,6 @@ export default class App extends Router.App {
             }
         );
         return states;
-    }
-
-    initListeners() {
-        /**
-         * Swipes will not be called on the touched
-         * element but broadcasted so listeners can
-         * subscribe to the event
-         */
-        Events.listen('App', 'swipeLeft', (recording) => {
-            const page = Router.getActivePage();
-            page.animation({
-                duration: 2, actions: [
-                    {p: 'x', v: {0: 0, 0.1: -1920, 0.8: -1920, 1: 0}}
-                ]
-            }).start();
-            this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE LEFT`;
-        });
-
-        Events.listen('App', 'swipeRight', (recording) => {
-            const page = Router.getActivePage();
-            page.animation({
-                duration: 2, actions: [
-                    {p: 'x', v: {0: 0, 0.1: 1920, 0.8: 1920, 1: 0}}
-                ]
-            }).start();
-
-            this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE RIGHT`;
-        });
-
-        Events.listen('App', 'swipeUp', (recording) => {
-            const page = Router.getActivePage();
-            page.animation({
-                duration: 2, actions: [
-                    {p: 'y', v: {0: 0, 0.1: -1080, 0.8: -1080, 1: 0}}
-                ]
-            }).start();
-            this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE UP`;
-        });
-
-        Events.listen('App', 'swipeDown', (recording) => {
-            const page = Router.getActivePage();
-            page.animation({
-                duration: 2, actions: [
-                    {p: 'y', v: {0: 0, 0.1: 1080, 0.8: 1080, 1: 0}}
-                ]
-            }).start();
-            this.tag("Label").text = `${recording.fingersTouched} FINGERS SWIPE DOWN`;
-        });
     }
 }
 
