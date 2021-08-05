@@ -25,19 +25,19 @@ export default class ListDemo extends Lightning.Component{
         return "left";
     }
 
-    swipeLeft(){
+    _onSwipeLeft(){
         Router.navigate("listdemo2")
     }
 
-    swipeUp(){
+    _onSwipeUp(){
         // block
     }
 
-    swipeRight(){
+    _onSwipeRight(){
         Router.navigate("buttonsdemo")
     }
 
-    swipeDown(){
+    _onSwipeDown(){
         // block
     }
 }

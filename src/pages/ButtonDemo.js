@@ -31,11 +31,11 @@ export default class ButtonDemo extends Lightning.Component{
         return "left";
     }
 
-    swipeLeft(){
+    _onSwipeLeft(){
         Router.navigate("listdemo")
     }
 
-    swipeUp(){
+    _onSwipeUp(){
         // block
     }
 
@@ -45,11 +45,11 @@ export default class ButtonDemo extends Lightning.Component{
     }
 
 
-    swipeRight(){
+    _onSwipeRight(){
         Router.navigate("main")
     }
 
-    swipeDown(){
+    _onSwipeDown(){
         // block
     }
 }

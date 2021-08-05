@@ -74,13 +74,13 @@ export default class DistanceDemo extends Lightning.Component{
         return "left";
     }
 
-    swipeLeft(recording){
+    _onSwipeLeft(recording){
         if (recording.fingersTouched === 2) {
             Router.navigate("main")
         }
     }
 
-    swipeUp(){
+    _onSwipeUp(){
         // block
     }
 
@@ -90,13 +90,13 @@ export default class DistanceDemo extends Lightning.Component{
     }
 
 
-    swipeRight(recording){
+    _onSwipeRight(recording){
         if (recording.fingersTouched === 2) {
             Router.navigate("rotatedcollision")
         }
     }
 
-    swipeDown(){
+    _onSwipeDown(){
         // block
     }
 

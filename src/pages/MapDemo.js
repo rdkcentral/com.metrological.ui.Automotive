@@ -62,21 +62,21 @@ export default class MapDemo  extends Lightning.Component{
         return "left"
     }
 
-    swipeUp(recording){
+    _onSwipeUp(recording){
         if(recording.fingersTouched === 4){
             Router.navigate("listdemo2")
         }
     }
 
-    swipeLeft(){
+    _onSwipeLeft(){
         // block
     }
 
-    swipeRight(){
+    _onSwipeRight(){
         // block
     }
 
-    swipeDown(recording){
+    _onSwipeDown(recording){
         if(recording.fingersTouched === 4){
             Router.navigate("rotatedcollision")
         }
