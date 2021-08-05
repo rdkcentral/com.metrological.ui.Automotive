@@ -80,26 +80,11 @@ export default class DistanceDemo extends Lightning.Component{
         }
     }
 
-    _onSwipeUp(){
-        // block
-    }
-
-
-    _onDoubleTap(){
-
-    }
-
-
     _onSwipeRight(recording){
         if (recording.fingersTouched === 2) {
             Router.navigate("rotatedcollision")
         }
     }
-
-    _onSwipeDown(){
-        // block
-    }
-
 
     get locators() {
         return this.tag('Locators').childList;

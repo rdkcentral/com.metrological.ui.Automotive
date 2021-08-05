@@ -149,18 +149,10 @@ export default class RotatedCollision extends Lightning.Component {
         }
     }
 
-    _onSwipeUp() {
-        // block
-    }
-
     _onSwipeRight(recording) {
         if (recording.fingersTouched === 2) {
             Router.navigate('mapdemo');
         }
-    }
-
-    _onSwipeDown() {
-        // block
     }
 
     get locators() {

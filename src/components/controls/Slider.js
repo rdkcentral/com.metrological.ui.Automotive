@@ -119,22 +119,6 @@ export default class Button extends Lightning.Component {
         return this._value;
     }
 
-    swipeLeft() {
-        // block
-    }
-
-    swipeRight() {
-        // block
-    }
-
-    swipeUp() {
-        // block
-    }
-
-    swipeDown() {
-        // block
-    }
-
     upv({min, max, width, currentPosition}) {
         this.patch({
             w: width, h: 80,

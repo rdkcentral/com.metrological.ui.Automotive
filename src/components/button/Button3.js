@@ -90,23 +90,5 @@ export default class Button extends Lightning.Component {
         this.color = 0xffffffff;
         this.alpha = 0.2;
     }
-    /**
-     * @todo: better blocking solution
-     */
 
-    swipeLeft(){
-
-    }
-
-    swipeUp(){
-        // block
-    }
-
-    swipeRight(){
-        // block
-    }
-
-    swipeDown(){
-        // block
-    }
 }

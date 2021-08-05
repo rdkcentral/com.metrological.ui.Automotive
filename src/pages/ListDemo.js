@@ -29,15 +29,8 @@ export default class ListDemo extends Lightning.Component{
         Router.navigate("listdemo2")
     }
 
-    _onSwipeUp(){
-        // block
-    }
-
     _onSwipeRight(){
         Router.navigate("buttonsdemo")
     }
 
-    _onSwipeDown(){
-        // block
-    }
 }

@@ -52,11 +52,11 @@ export default class List extends Lightning.Component {
         });
     }
 
-    swipeLeft(recording) {
+    _onSwipeLeft(recording) {
         this.swipe(recording, -1);
     }
 
-    swipeRight(recording) {
+    _onSwipeRight(recording) {
         this.swipe(recording, 1);
     }
 

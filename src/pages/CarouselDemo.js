@@ -35,9 +35,6 @@ export default class CarouselDemo extends Lightning.Component {
 
     }
 
-    _onSwipeUp() {
-        // block
-    }
 
     _onSwipeRight(recording) {
         if (recording.fingersTouched === 2) {
@@ -45,8 +42,5 @@ export default class CarouselDemo extends Lightning.Component {
         }
     }
 
-    _onSwipeDown() {
-        // block
-    }
 
 }

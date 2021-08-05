@@ -61,22 +61,6 @@ export default class RotatingButton extends Lightning.Component {
         // apply rotation
         this.button.rotation = Math.atan2(
             ~~(y) - this.center.y, ~~(x) - this.center.x
-        );;
-    }
-
-    swipeLeft(){
-
-    }
-
-    swipeUp(){
-        // block
-    }
-
-    swipeRight(){
-        // block
-    }
-
-    swipeDown(){
-        // block
+        );
     }
 }

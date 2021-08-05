@@ -136,19 +136,9 @@ export default class ControlsDemo  extends Lightning.Component{
         }
     }
 
-    swipeLeft(){
-        // block
-    }
-
-    swipeRight(){
-        // block
-    }
-
     _onSwipeDown(recording){
         if(recording.fingersTouched === 4){
             Router.navigate("rotatedcollision")
         }
     }
-
-
 }
