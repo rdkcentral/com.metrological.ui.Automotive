@@ -9,6 +9,7 @@ export default {
         {
             path: 'main',
             component: Main,
+            widgets: ['DemoSelector']
         },{
             path: 'touchidentification',
             component: TouchIdentification,

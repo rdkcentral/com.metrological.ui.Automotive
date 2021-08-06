@@ -129,16 +129,4 @@ export default class ControlsDemo  extends Lightning.Component{
         }
         return "left"
     }
-
-    _onSwipeUp(recording){
-        if(recording.fingersTouched === 2){
-            Router.navigate("listdemo2")
-        }
-    }
-
-    _onSwipeDown(recording){
-        if(recording.fingersTouched === 4){
-            Router.navigate("rotatedcollision")
-        }
-    }
 }

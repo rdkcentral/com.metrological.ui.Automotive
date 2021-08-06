@@ -28,19 +28,4 @@ export default class CarouselDemo extends Lightning.Component {
         return "left";
     }
 
-    _onSwipeLeft(recording) {
-        if (recording.fingersTouched === 2) {
-            Router.navigate("controlsdemo");
-        }
-
-    }
-
-
-    _onSwipeRight(recording) {
-        if (recording.fingersTouched === 2) {
-            Router.navigate("listdemo");
-        }
-    }
-
-
 }

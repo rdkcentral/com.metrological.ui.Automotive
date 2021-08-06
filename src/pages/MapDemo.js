@@ -1,35 +1,37 @@
 import {Lightning, Router, Utils} from "@lightningjs/sdk";
 
-export default class MapDemo  extends Lightning.Component{
-    static _template(){
+export default class MapDemo  extends Lightning.Component {
+    static _template() {
         return {
-            rect: true, w: 1920, h: 1080, color:0xff000000,
-            Image:{
-                w:1920, h: 1080, src: Utils.asset('images/map.jpg')
+            rect: true, w: 1920, h: 1080, color: 0xff000000,
+            Image: {
+                w: 1920, h: 1080, src: Utils.asset('images/map.jpg')
             },
-            ButtonsTitle:{
+            ButtonsTitle: {
                 x: 30, y: 20,
-                text:{
-                    text:'Automotive Pinch zoom rotation demo', fontFace:'julius'
+                text: {
+                    text: 'Automotive Pinch zoom rotation demo', fontFace: 'julius'
                 }
             },
-            Scale:{
-                x: 30, y: 70, alpha:0.5,
-                text:{ fontSize:18,
-                    text:'', fontFace:'julius'
+            Scale: {
+                x: 30, y: 70, alpha: 0.5,
+                text: {
+                    fontSize: 18,
+                    text: '', fontFace: 'julius'
                 }
             },
-            Rotation:{
-                x: 30, y: 95, alpha:0.5,
-                text:{fontSize:18,
-                    text:'', fontFace:'julius'
+            Rotation: {
+                x: 30, y: 95, alpha: 0.5,
+                text: {
+                    fontSize: 18,
+                    text: '', fontFace: 'julius'
                 }
             }
         }
     }
 
 
-    _onPinch(record){
+    _onPinch(record) {
         const {distance, angle} = record.pinch;
         const level = (distance / 1920) * 6 + 1;
         this.tag("Image").scale = level > 0 ? level : 0.001;
@@ -39,10 +41,10 @@ export default class MapDemo  extends Lightning.Component{
         this.tag("Rotation").text = `rotation: ${angle}`;
     }
 
-    _onPinchEnd(){
+    _onPinchEnd() {
         this.tag("Image").patch({
             smooth: {
-                scale:[1,{duration:0.8}], rotation:[0,{duration:0.8}]
+                scale: [1, {duration: 0.8}], rotation: [0, {duration: 0.8}]
             }
         })
         this.tag("Scale").text = ``;
@@ -54,25 +56,7 @@ export default class MapDemo  extends Lightning.Component{
     }
 
 
-    pageTransition(i, o){
-        const outHash = o[Router.symbols.hash];
-        if(outHash === "rotatedcollision"){
-            return "right"
-        }
+    pageTransition(i, o) {
         return "left"
     }
-
-    _onSwipeUp(recording){
-        if(recording.fingersTouched === 4){
-            Router.navigate("listdemo2")
-        }
-    }
-
-    _onSwipeDown(recording){
-        if(recording.fingersTouched === 4){
-            Router.navigate("rotatedcollision")
-        }
-    }
-
-
 }

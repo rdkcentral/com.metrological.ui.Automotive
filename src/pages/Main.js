@@ -1,60 +1,85 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-import {Button2} from "../components";
+import {Item} from "../components";
 
 export default class Main extends Lightning.Component{
     static _template(){
         return {
-            w: 1920, h: 1080, rect:true,
-            colorTop: 0xff000428, colorBottom: 0xff6699ff,
-            Label:{
-                alpha: 0.4,
-                x: 960, y: 550, mount: 0.5,
-                text:{
-                    text:'Automotive interaction demo', fontSize: 60, fontFace:'julius'
+            w: 1920, h: 1080,
+            Blurred:{
+                w: 1920, h: 1080, rect: true,
+                type: Lightning.components.FastBlurComponent, amount: 0, content: {
+                    Bg:{
+                        w: 1920, h: 1080, rect:true, colorTop: 0xff000428, colorBottom: 0xff6699ff,
+                    },
+                    Label:{
+                        alpha: 0.4,
+                        x: 960, y: 550, mount: 0.5,
+                        text:{
+                            text:'Automotive interaction demo', fontSize: 60, fontFace:'julius'
+                        }
+                    },
+                    Interaction:{
+                        alpha: 0.8,
+                        x: 960, y: 610, mount: 0.5,
+                        text:{
+                            text:'Double tap to start', fontSize: 30, fontFace:'julius'
+                        }
+                    },
+
                 }
             },
-            Interaction:{
-                alpha: 0.8,
-                x: 960, y: 610, mount: 0.5,
-                text:{
-                    text:'Tap to start', fontSize: 30, fontFace:'julius'
+        }
+    }
+
+    _init(){
+        console.log("test:", this.children)
+    }
+
+    _onSingleTap(){
+        this.content.tag("Interaction").text = `That's a single tap :)`;
+        setTimeout(()=>{
+            this.content.tag("Interaction").text = `Double tap to start`;
+        },2000)
+    }
+
+    _onDoubleTap(){
+        this._setState("Selector")
+    }
+
+    static _states(){
+        return [
+            class Selector extends this {
+                $enter(){
+                    this.content.tag("Interaction").text = `Loading demo pages`
+                    this.tag("Blurred").animation({
+                        duration: 0.5, repeat:0,
+                        actions:[
+                            {p:'scale', v:{0:1, 0.4:1.09, 1:1}},
+                            {p:'amount', v:{0:0, 0.4:0, 1:2}},
+                        ]
+                    }).start();
+                }
+                _onDoubleTap(){
+                    this._setState("")
+                }
+                $exit(){
+                    this.content.tag("Interaction").text = `Double tap to start`
+                    this.tag("Blurred").animation({
+                        duration: 0.2, repeat:0,
+                        actions:[
+                            {p:'amount', v:{0:2, 1:0}}
+                        ]
+                    }).start();
+                    this.widgets.demoselector.setSmooth('alpha',0, {
+                        duration:0.3, delay:0
+                    })
                 }
             }
-        }
+        ]
     }
 
-    _onSingleTap(recording){
-        this.tag("Interaction").text = "single tap"
-    }
-
-    _onDoubleTap(recording){
-        this.tag("Interaction").text = "double tap"
-    }
-
-    _onMultiTap(recording){
-        this.tag("Interaction").text = `${recording.fingersTouched} fingers tap`
-    }
-
-    _onLongpress(recording){
-        this.tag("Interaction").text = `${recording.fingersTouched} fingers longpress`
-    }
-
-    _onSwipe2fLeft(){
-        Router.navigate("buttonsdemo")
-    }
-
-    _onSwipe2fRight(){
-        Router.navigate("rotatedcollision")
-    }
-
-    pageTransition(pageIn, pageOut){
-        const outHash = pageOut[Router.symbols.hash];
-        if(outHash === "listdemo"){
-            return "left"
-        }else if(outHash === "mapdemo"){
-            return "down"
-        }
-        return "right"
+    get content(){
+        return this.tag("Blurred").content;
     }
 }
 

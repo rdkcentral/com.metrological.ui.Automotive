@@ -30,13 +30,4 @@ export default class ButtonDemo extends Lightning.Component{
     pageTransition(){
         return "left";
     }
-
-    _onSwipeLeft(){
-        Router.navigate("listdemo")
     }
-
-    _onSwipeRight(){
-        Router.navigate("main")
-    }
-
-}
