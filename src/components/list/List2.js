@@ -1,7 +1,6 @@
 import {Lightning} from "@lightningjs/sdk";
 import {Automotive} from "@lightningjs/automotive";
 import {Item1} from "../index";
-import {findSlope} from "@lightningjs/automotive/src/analyzer";
 
 export default class List extends Lightning.Component {
     static _template() {
@@ -61,11 +60,11 @@ export default class List extends Lightning.Component {
     }
 
     swipe(rec, dir){
-        const {duration, distance} = findSlope(rec.firstFinger);
-        let force = distance / duration * 500 * dir;
+        const force = Automotive.getHorizontalForce(rec.firstFinger);
+        const power = force * 500 * dir;
 
         this.items.forEach((item) => {
-            const position = item.x + (force);
+            const position = item.x + (power);
             item.setSmooth('x', position, {
                 duration: 0.9, timingFunction: 'ease-out'
             });

@@ -1,5 +1,6 @@
 import {Lightning} from "@lightningjs/sdk";
 import {Item} from "../index";
+import {Automotive} from "@lightningjs/automotive";
 import {findSlope} from "@lightningjs/automotive/src/analyzer";
 
 export default class List extends Lightning.Component {
@@ -49,29 +50,24 @@ export default class List extends Lightning.Component {
     }
 
     swipe(recording, dir) {
-        const {duration, distance} = findSlope(recording.firstFinger, 'x');
-        let force = distance / duration * 500 * dir;
-        const bounds = this.items[dir === 1 ? 0 : this.items.length - 1].x + force;
+        const force = Automotive.getHorizontalForce(recording.firstFinger);
+        let power = force * 500 * dir;
+        const bounds = this.items[dir === 1 ? 0 : this.items.length - 1].x + power;
         let outOfBounds = false;
 
         // prevent list going out of bounds
         if (dir === 1 && bounds > 0) {
-            force = force - bounds;
+            power = power - bounds;
             outOfBounds = true;
         } else if (dir === -1 && bounds < 1650) {
             const diff = 1650 - bounds;
-            force += diff;
+            power += diff;
             outOfBounds = true;
-        }
-
-        // prevent extreme force
-        if (isNaN(force)) {
-            force = 0;
         }
 
         // position items accordingly to force
         this.items.forEach((item) => {
-            const position = item.x + (force);
+            const position = item.x + (power);
             item.setSmooth('x', position, {
                 duration: 0.5,
                 timingFunction: outOfBounds ? 'cubic-bezier(.8,-0.5,0,2.19)' : 'ease-out'
