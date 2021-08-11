@@ -63,13 +63,11 @@ export default class App extends Router.App {
         })
     }
 
-    _onDoubleTap(){
-        this.tag("DemoSelector").setSmooth('alpha',0, {
-            duration:0.3, delay:0
-        })
-    }
-
-
+    // _onDoubleTap(){
+    //     this.tag("DemoSelector").setSmooth('alpha',0, {
+    //         duration:0.3, delay:0
+    //     })
+    // }
 
     /**
      * Example of extending the Router.App StateMachine

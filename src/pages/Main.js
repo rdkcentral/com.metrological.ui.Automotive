@@ -31,10 +31,6 @@ export default class Main extends Lightning.Component{
         }
     }
 
-    _init(){
-        console.log("test:", this.children)
-    }
-
     _onSingleTap(){
         this.content.tag("Interaction").text = `That's a single tap :)`;
         setTimeout(()=>{
@@ -58,6 +54,10 @@ export default class Main extends Lightning.Component{
                             {p:'amount', v:{0:0, 0.4:0, 1:2}},
                         ]
                     }).start();
+
+                    this.widgets.demoselector.setSmooth('alpha',1, {
+                        duration:0.3, delay:0
+                    })
                 }
                 _onDoubleTap(){
                     this._setState("")
