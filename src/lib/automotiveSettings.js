@@ -10,5 +10,6 @@ export const settings = {
     swipeXTreshold: 30,
     swipeYTreshold: 30,
     viewportOffsetX: 0,
-    viewportOffsetY: 57
+    viewportOffsetY: 57,
+    touchQueueMaxLength: 250
 }

@@ -1,4 +1,5 @@
 import {Lightning} from "@lightningjs/sdk";
+import {Automotive} from "@lightningjs/automotive";
 
 export default class Main extends Lightning.Component {
     static _template() {
@@ -14,9 +15,9 @@ export default class Main extends Lightning.Component {
             },
             Interaction: {
                 alpha: 0.8,
-                x: 960, y: 610, mount: 0.5,
+                x: 960, y: 610, mountX: 0.5,
                 text: {
-                    text: 'Interact with screen', fontSize: 30, fontFace: 'julius'
+                    text: 'Interact with screen', fontSize: 30, fontFace: 'julius', textAlign:'center', lineHeight:50
                 }
             }
         };
@@ -38,25 +39,32 @@ export default class Main extends Lightning.Component {
         this.tag("Interaction").text = `${recording.fingersTouched} fingers longpress`;
     }
 
-    swipeLeft(rec) {
+    _onSwipeLeft(rec) {
         this.handleSwipe(rec, 'left');
     }
 
-    swipeRight(rec) {
+    _onSwipeRight(rec) {
         this.handleSwipe(rec, 'right');
     }
 
-    swipeUp(rec) {
+    _onSwipeUp(rec) {
         this.handleSwipe(rec, 'up');
     }
 
-    swipeDown(rec) {
+    _onSwipeDown(rec) {
         this.handleSwipe(rec, 'down');
     }
 
     handleSwipe(rec, dir) {
         const amount = rec.fingersTouched;
-        this.tag("Interaction").text = `${amount} finger${amount > 1 ? 's' : ''} swipe ${dir}`;
+        const forceX = Automotive.getHorizontalForce(rec.firstFinger);
+        const forceY = Automotive.getVerticalForce(rec.firstFinger);
+
+        this.tag("Interaction").text = [
+            `${amount} finger${amount > 1 ? 's' : ''} swipe ${dir}`,
+            `force x: ${parseFloat(forceX).toFixed(6)}`,
+            `force y: ${parseFloat(forceY).toFixed(6)}`
+        ].join('\n');
     }
 
     _onPinch({pinch}) {
