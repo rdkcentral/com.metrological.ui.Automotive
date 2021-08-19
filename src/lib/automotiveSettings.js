@@ -5,7 +5,7 @@ export const settings = {
     beforeDoubleTapDelay: 180,
     flagAsHoldDelay: 800,
     doubleTapMaxDistance: 40,
-    externalTouchScreen: true,
+    externalTouchScreen: false,
     componentBlockBroadcast: true,
     swipeXTreshold: 30,
     swipeYTreshold: 30,
