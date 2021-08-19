@@ -36,7 +36,8 @@ export default class DemoSelector extends Lightning.Component{
                 y: Math.floor(index / 4) * 350 + 800,
                 alpha:0,
                 label, link,
-                widget:this
+                widget:this,
+                zIndex:1
             }
         })
     }
@@ -104,8 +105,11 @@ class Demo extends Lightning.Component{
         this._widget = v;
     }
 
+
     _onSingleTap(){
         this._widget.setSmooth('alpha', 0)
         Router.navigate(this._link)
     }
+
+
 }
