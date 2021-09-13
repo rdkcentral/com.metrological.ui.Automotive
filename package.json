@@ -2,7 +2,7 @@
   "name": "com.metrological.ui.Automotive",
   "description": "AutoMotive",
   "dependencies": {
-    "@lightningjs/automotive": "git@github.com:rdkcentral/Lightning-Automotive.git",
+    "@lightningjs/automotive": "git+ssh://git@github.com/rdkcentral/Lightning-Automotive.git",
     "@lightningjs/sdk": "^4.6.1"
   }
 }
