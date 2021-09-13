@@ -13,5 +13,6 @@ export const settings = {
     viewportOffsetY: 57,
     touchQueueMaxLength: 250,
     w: window.innerWidth,
-    h: window.innerHeight
+    h: window.innerHeight,
+    ipad: true
 }

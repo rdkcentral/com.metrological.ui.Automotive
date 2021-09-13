@@ -1,11 +1,12 @@
 import {Lightning} from "@lightningjs/sdk";
 import {Automotive} from "@lightningjs/automotive";
 import {Item1} from "../index";
+import {settings} from "../../lib/automotiveSettings";
 
 export default class List extends Lightning.Component {
     static _template() {
         return {
-            w: 1920, h: 400,
+            w: w=>w, h: 400,
             Items: {
                 y: 30,
             }
@@ -83,15 +84,15 @@ export default class List extends Lightning.Component {
             x = item.x;
         }
 
-        const center = 1920 / 2 - (this.itemWidth / 2);
+        const center = settings.w / 2 - (this.itemWidth / 2);
         const absDis = Math.abs(x - center);
         const offset = absDis / center;
         const zIndex = 40 - offset * 10;
         const scale = 1 - Automotive.smoothstep(0, center, absDis / 1.5);
         const alpha = Automotive.smoothstep(0.1, 0.7, scale);
 
-        if(absDis < 960){
-           item.shader.rx = (x - center) / 500;
+        if(absDis < settings.w / 2){
+           item.shader.rx = (x - center) / (settings.w / 2);
         }
 
         item.patch({

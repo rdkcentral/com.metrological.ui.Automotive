@@ -16,16 +16,15 @@ export default class App extends Router.App {
         Automotive.start(
             this.application, settings
         );
-
         Router.startRouter(routes, this);
     }
 
     static _template() {
         return {
-            w: 1920, h: 1080,
+            w: settings.w, h: settings.h,
             rect: true, color:0x00ffffff,
             Background: {
-                rect: true, color: 0xff000000, w: 1920, h: 1080,
+                rect: true, color: 0xff000000, w: settings.w, h: settings.h,
                 Label: {
                     color: 0xffffffff, mount: 0.5,
                     x: 960, y: 540,
@@ -38,8 +37,11 @@ export default class App extends Router.App {
             // we MUST spread the base-class template
             // if we want to provide Widgets.
             ...super._template(),
+            Pages: {
+                forceZIndexContext: true, w: settings.w, h: settings.h
+            },
             Widgets: {
-                DemoSelector:{
+                DemoSelector:{ w: settings.w, h: settings.h,
                     type: DemoSelector
                 }
             }

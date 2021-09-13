@@ -1,4 +1,5 @@
 import {Lightning, Router} from "@lightningjs/sdk";
+import {settings} from "../lib/automotiveSettings";
 
 const demos = [
     {label:'Touch identifcation', link:'touchidentification'},
@@ -11,19 +12,23 @@ const demos = [
     {label:'Car Controls', link:'controlsdemo'}
 ]
 
+const dimension = settings.h / 3;
+const gap = (settings.w - (dimension * 4)) / 6;
+const position = dimension + gap;
+
 export default class DemoSelector extends Lightning.Component{
     static _template(){
         return {
-            rect:true, w: 1920, h: 1080, alpha: 0,
+            rect:true, w: w=>w, h: h=>h, alpha: 0,
             colorLeft: 0xee141e30, colorRight: 0xee243b55,
             Label:{
-                y: 50, mountX: 0.5, x: 960,
+                y: 30, mountX: 0.5, x: w=>w/2,
                 text:{
                     text:'Select a demo', fontFace:'julius'
                 }
             },
             Demos:{
-                y: 160, x: 260
+                x: gap, y: gap < 70 ? 70 : gap
             }
         }
     }
@@ -32,8 +37,10 @@ export default class DemoSelector extends Lightning.Component{
         this.demos = demos.map(({label, link}, index)=>{
             return {
                 type: Demo,
-                x: index % 4 * 350,
-                y: Math.floor(index / 4) * 350 + 800,
+                x: index % 4 * (position),
+                y: Math.floor(index / 4) * (position) - 800,
+                w: dimension,
+                h: dimension,
                 alpha:0,
                 label, link,
                 widget:this,
@@ -52,12 +59,12 @@ export default class DemoSelector extends Lightning.Component{
 
     toggle(visible){
         this.demos.forEach((el, idx)=>{
-            const pos = Math.floor(idx / 4) * 350;
+            const pos = Math.floor(idx / 4) * position;
             el.patch({
                 smooth:{
                     alpha:1,
                     y: [
-                        visible ? pos : pos + 800, {
+                        visible ? pos + 60 : pos - 800, {
                             duration:0.3,
                             delay: idx * 0.02,
                             timingFunction: 'ease-out'
@@ -79,11 +86,11 @@ export default class DemoSelector extends Lightning.Component{
 class Demo extends Lightning.Component{
     static _template(){
         return {
-            rect:true, w: 300, h: 300, color: 0x705b86e5,
-            Label:{ mount: 0.5, x: 150, y: 150,
+            rect:true, color: 0x705b86e5,
+            Label:{ mount: 0.5, x: dimension / 2, y: dimension / 2,
                 text:{
-                    fontSize:40, textAlign:'center', fontFace:'julius',
-                    wordWrapWidth: 270, lineHeight:50
+                    fontSize:30, textAlign:'center', fontFace:'julius',
+                    wordWrapWidth: dimension - 20, lineHeight:40
                 }
             }
         }

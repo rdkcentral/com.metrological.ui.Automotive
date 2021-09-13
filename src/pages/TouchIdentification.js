@@ -4,20 +4,20 @@ import {Automotive} from "@lightningjs/automotive";
 export default class Main extends Lightning.Component {
     static _template() {
         return {
-            w: 1920, h: 1080, rect: true,
+            w: w=>w, h: h=>h, rect: true,
             colorBottom: 0xff000428, colorTop: 0xff004e92,
             Label: {
                 alpha: 0.2,
-                x: 960, y: 550, mount: 0.5,
+                x: w=>w/2, y: h=>h/2, mount: 0.5,
                 text: {
-                    text: 'Automotive touch identification demo', fontSize: 60, fontFace: 'julius'
+                    text: 'Touch identification demo', fontSize: 60, fontFace: 'julius'
                 }
             },
             Interaction: {
                 alpha: 0.8,
-                x: 960, y: 610, mountX: 0.5,
+                x: w=>w/2, y: h=>h/2 + 60, mountX: 0.5,
                 text: {
-                    text: 'Interact with screen', fontSize: 30, fontFace: 'julius', textAlign:'center', lineHeight:50
+                    text: 'Interact with screen', fontSize: 50, fontFace: 'julius', textAlign:'center', lineHeight:70
                 }
             }
         };

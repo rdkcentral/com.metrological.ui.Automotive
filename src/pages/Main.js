@@ -1,33 +1,34 @@
 import {Lightning, Router} from "@lightningjs/sdk";
+import {settings} from "../lib/automotiveSettings"
 import {Item} from "../components";
 
 export default class Main extends Lightning.Component{
     static _template(){
         return {
-            w: 1920, h: 1080,
+            w: settings.w, h: settings.h,
             Blurred:{
-                w: 1920, h: 1080, rect: true,
+                w: settings.w, h: settings.h, rect: true,
                 type: Lightning.components.FastBlurComponent, amount: 0, content: {
                     Bg:{
-                        w: 1920, h: 1080, rect:true, colorTop: 0xff000428, colorBottom: 0xff6699ff,
+                        w: settings.w, h: settings.h, rect:true, colorTop: 0xff000428, colorBottom: 0xff6699ff,
                     },
                     Label:{
                         alpha: 0.4,
-                        x: 960, y: 550, mount: 0.5,
+                        x: settings.w / 2, y: settings.h / 2, mount: 0.5,
                         text:{
                             text:'Automotive interaction demo', fontSize: 60, fontFace:'julius'
                         }
                     },
                     Interaction:{
                         alpha: 0.8,
-                        x: 960, y: 610, mount: 0.5,
+                        x: settings.w / 2, y: settings.h / 2 + 100, mount: 0.5,
                         text:{
                             text:'Double tap to start', fontSize: 30, fontFace:'julius'
                         }
                     },
 
                 }
-            },
+            }
         }
     }
 
