@@ -37,14 +37,13 @@ export default class VolumeButton extends RotatingButton{
             Indicators:{
                 x: 10
             },
-            Value:{ x: 115, y: 60, mountX: 0.5,
-                alpha: 0.2,
+            Value:{ x: 117, y: 76, mountX: 0.5,
                 text:{
-                    text:'0', fontSize:63, fontFace: 'julius'
+                    text:'0', fontSize:48, fontFace: 'julius'
                 }
             },
             Label:{
-                x: 115, y: 128, mountX: 0.5,
+                x: 117, y: 134, mountX: 0.5, alpha: 0.4,
                 text:{
                     text:'volume', fontSize:18, fontFace: 'julius'
                 }
