@@ -48,7 +48,7 @@ export default class MapDemo  extends Lightning.Component {
                     y: 7,
                     x: 15,
                     text: {
-                        fontSize: 18, text: 'Map data from OpenStreetMap'
+                        fontSize: 18, text: '© OpenStreetMap contributors'
                     }
                 }
             },
