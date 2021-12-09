@@ -1,3 +1,8 @@
+import { Automotive } from '@lightningjs/automotive';
+import {
+  collide,
+  rotatePoint,
+} from '@lightningjs/automotive/src/helpers';
 /*
 * If not stated otherwise in this file or this component's LICENSE file the
 * following copyright and licenses apply:
@@ -16,10 +21,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import {Lightning, Router} from "@lightningjs/sdk";
-import {Button3} from "../components";
-import {Automotive} from "@lightningjs/automotive";
-import {rotatePoint, collide} from "@lightningjs/automotive/src/helpers";
+import { Lightning } from '@lightningjs/sdk';
+
+import { Button3 } from '../components';
 
 export default class RotatedCollision extends Lightning.Component {
     static _template() {

@@ -16,9 +16,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import {Lightning, Router} from "@lightningjs/sdk";
-import {Button1} from "../components";
-import {settings} from "../lib/automotiveSettings";
+import { Lightning } from '@lightningjs/sdk';
+
+import { Button1 } from '../components';
+import { settings } from '../lib/automotiveSettings';
 
 const dimension = settings.h / 4;
 const gap = (settings.w - (dimension * 4)) / 6;

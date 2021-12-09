@@ -16,9 +16,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import {Lightning, Router} from "@lightningjs/sdk";
-import {settings} from "../lib/automotiveSettings"
-import {Item} from "../components";
+import { Lightning } from '@lightningjs/sdk';
+
+import { settings } from '../lib/automotiveSettings';
 
 export default class Main extends Lightning.Component{
     static _template(){

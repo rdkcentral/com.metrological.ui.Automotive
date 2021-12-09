@@ -16,8 +16,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import { Launch } from '@lightningjs/sdk'
-import App from './App.js'
+import { Launch } from '@lightningjs/sdk';
+
+import App from './App.js';
 
 export default function() {
   return Launch(App, ...arguments)

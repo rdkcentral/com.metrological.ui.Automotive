@@ -16,19 +16,40 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import {Lightning, Router, Utils} from "@lightningjs/sdk";
+import {
+  Lightning,
+  Utils,
+} from '@lightningjs/sdk';
+
+import { settings } from '../lib/automotiveSettings';
 
 export default class MapDemo  extends Lightning.Component {
     static _template() {
         return {
             rect: true, w: 1920, h: 1080, color: 0xff000000,
             Image: {
-                w: 1920, h: 1080, src: Utils.asset('images/map.jpg')
+                w: 1920, h: 1080, src: Utils.asset('openstreetmap/map.jpg')
             },
             ButtonsTitle: {
                 x: 30, y: 20,
                 text: {
                     text: 'Automotive Pinch zoom rotation demo', fontFace: 'julius'
+                }
+            },
+            OpenStreetMapAttr: {
+                mount: 1,
+                y: settings.h,
+                x: settings.w,
+                h: 40,
+                w: 340,
+                rect: true,
+                color: 0xff212121,
+                Label: {
+                    y: 7,
+                    x: 15,
+                    text: {
+                        fontSize: 18, text: 'Map data provided by OpenStreetMap'
+                    }
                 }
             },
             Scale: {

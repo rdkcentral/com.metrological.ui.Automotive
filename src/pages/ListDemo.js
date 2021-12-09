@@ -16,8 +16,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import {Lightning, Router} from "@lightningjs/sdk";
-import {List1} from "../components";
+import { Lightning } from '@lightningjs/sdk';
+
+import { List1 } from '../components';
 
 export default class ListDemo extends Lightning.Component{
     static _template(){

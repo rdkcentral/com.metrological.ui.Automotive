@@ -1,3 +1,4 @@
+import { Automotive } from '@lightningjs/automotive';
 /*
 * If not stated otherwise in this file or this component's LICENSE file the
 * following copyright and licenses apply:
@@ -16,11 +17,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import {Router, Utils} from "@lightningjs/sdk";
-import {Automotive} from "@lightningjs/automotive";
-import routes from "./lib/routes";
-import {settings} from "./lib/automotiveSettings";
-import {DemoSelector} from "./widgets";
+import {
+  Router,
+  Utils,
+} from '@lightningjs/sdk';
+
+import { settings } from './lib/automotiveSettings';
+import routes from './lib/routes';
+import { DemoSelector } from './widgets';
 
 export default class App extends Router.App {
     static getFonts() {
