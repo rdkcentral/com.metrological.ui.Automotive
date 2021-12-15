@@ -26,7 +26,7 @@ import { settings } from '../lib/automotiveSettings';
 export default class MapDemo  extends Lightning.Component {
     static _template() {
         return {
-            rect: true, w: 1920, h: 1080, color: 0xff000000,
+            rect: true, w: settings.w, h: settings.h, color: 0xff000000,
             Image: {
                 w: 1920, h: 1080, src: Utils.asset('openstreetmap/map.jpg')
             },
@@ -41,14 +41,15 @@ export default class MapDemo  extends Lightning.Component {
                 y: settings.h,
                 x: settings.w,
                 h: 40,
-                w: 340,
+                w: 600,
+                zIndex: 10,
                 rect: true,
                 color: 0xff212121,
                 Label: {
                     y: 7,
                     x: 15,
                     text: {
-                        fontSize: 18, text: '© OpenStreetMap contributors'
+                        fontSize: 18, text: '© OpenStreetMap contributors: https://www.openstreetmap.org/copyright'
                     }
                 }
             },
@@ -69,7 +70,6 @@ export default class MapDemo  extends Lightning.Component {
         }
     }
 
-
     _onPinch(record) {
         const {distance, angle} = record.pinch;
         const level = (distance / 1920) * 6 + 1;
@@ -88,10 +88,6 @@ export default class MapDemo  extends Lightning.Component {
         })
         this.tag("Scale").text = ``;
         this.tag("Rotation").text = ``;
-    }
-
-    _inactive() {
-
     }
 
 
