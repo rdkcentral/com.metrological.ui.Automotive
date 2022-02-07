@@ -41,7 +41,7 @@ export default class MapDemo  extends Lightning.Component {
                 y: settings.h,
                 x: settings.w,
                 h: 40,
-                w: 600,
+                w: 800,
                 zIndex: 10,
                 rect: true,
                 color: 0xff212121,
@@ -49,7 +49,7 @@ export default class MapDemo  extends Lightning.Component {
                     y: 7,
                     x: 15,
                     text: {
-                        fontSize: 18, text: '© OpenStreetMap contributors: https://www.openstreetmap.org/copyright'
+                        fontSize: 18, text: '© MapTiler: maptiler.com/copyright,  © OpenStreetMap contributors: openstreetmap.org/copyright'
                     }
                 }
             },
